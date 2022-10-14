@@ -4,16 +4,24 @@ import 'package:mmbc_tour_and_travel/widgets/icon_text_bottom.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:mmbc_tour_and_travel/widgets/image_icon.dart';
 import 'package:fine_icons/fine_icons.dart';
+import 'package:mmbc_tour_and_travel/widgets/product/bus_akap_icon.dart';
 import 'package:mmbc_tour_and_travel/widgets/product/flight_icon.dart';
+import 'package:mmbc_tour_and_travel/widgets/product/isi_pulsa_icon.dart';
 import 'package:mmbc_tour_and_travel/widgets/product/kapal_ferry_icon.dart';
+import 'package:mmbc_tour_and_travel/widgets/product/kirim_paket_icon.dart';
+import 'package:mmbc_tour_and_travel/widgets/product/tiket_bioskop_icon.dart';
+import 'package:mmbc_tour_and_travel/widgets/product/transfer_uang_icon.dart';
 
 import '../widgets/big_text.dart';
 import '../widgets/dot_circle.dart';
 import '../widgets/product/bus_travel_icon.dart';
 import '../widgets/product/flight_class_icon.dart';
+import '../widgets/product/gopay_icon.dart';
 import '../widgets/product/hotel_icon.dart';
 import '../widgets/product/kai_icon.dart';
+import '../widgets/product/lainnya_icon.dart';
 import '../widgets/product/pelni_icon.dart';
+import '../widgets/product/pln_icon.dart';
 import '../widgets/small_text.dart';
 
 class MainPage extends StatefulWidget {
@@ -49,9 +57,9 @@ class _MainPageState extends State<MainPage> {
 
     List<Widget> iconMainMenu = [FlightIcon(), FlightClassIcon(),
     KAIIcon(), HotelIcon(), PELNIIcon(),
-    KapalFerryIcon(), BusTravelIcon(), FlightIcon(), FlightIcon(),
-    FlightIcon(), FlightIcon(), FlightIcon(), FlightIcon(),
-    FlightIcon(), FlightIcon()];
+    KapalFerryIcon(), BusTravelIcon(), BusAKAPIcon(), PLNIcon(),
+    GopayIcon(), IsiPulsaIcon(), TransferUangIcon(), TiketBioskopIcon(),
+    KirimPaketIcon(), LainnyaIcon()];
 
     List<String> titleIconMainMenu = ["Flight", "Flight Class", "Kereta Api",
       "Hotel", "PELNI", "Kapal Ferry", "Bus Travel", "Bus AKAP", "PLN", "GOPAY",
