@@ -8,7 +8,7 @@ class KAIIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return const FineIcons(
       background: Color(0xFF3A66DB),
-      allSideRadius: 12,
+      allSideRadius: 16,
       width: 35,
       minHeight: 35,
       elevationShadowColor: Colors.white,

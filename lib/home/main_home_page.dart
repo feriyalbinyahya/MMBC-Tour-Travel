@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mmbc_tour_and_travel/home/promo_banner.dart';
 import 'package:mmbc_tour_and_travel/utils/colors.dart';
 import 'package:mmbc_tour_and_travel/widgets/icon_text_bottom.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -23,6 +24,7 @@ import '../widgets/product/lainnya_icon.dart';
 import '../widgets/product/pelni_icon.dart';
 import '../widgets/product/pln_icon.dart';
 import '../widgets/small_text.dart';
+import 'hotel_banner.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -34,26 +36,6 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-
-    List<String> imgListHotel = ["https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg",
-      "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg",
-      "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg",
-      "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg",
-      "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg",
-      "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg"];
-
-    List<String> hotelNameList = ["Hotel Santika BSD", "Hotel Salak The Heritage",
-    "Hotel Marina Airport", "Horison Ultima Bekasi", "Hotel Banjarmasin",
-    "Avissa Suites"];
-
-    List<String> cityHotelList = ["Jakarta", "Bogor", "Semarang", "Bekasi", "Banjarmasin",
-    "Jakarta Selatan"];
-
-    List<String> classHotelList = ["Deluxe Twin", "Deluxe", "Deluxe Only Room", "Deluxe",
-    "Deluxe Double Room Only", "Deluxe Queen Bed"];
-
-    List<String> priceHotelList = ["681.889", "550.989", "215.000", "644.887", "290.000",
-    "589.999"];
 
     List<Widget> iconMainMenu = [FlightIcon(), FlightClassIcon(),
     KAIIcon(), HotelIcon(), PELNIIcon(),
@@ -73,12 +55,9 @@ class _MainPageState extends State<MainPage> {
       "CGV", "IMAX", "The Premiere"], ["Reguler", "Instant", "SameDay", "Kargo"],
     ["Gopay", "ShopeePay", "LinkAja", "OVO"], ["Semua ada disini"]];
 
-    List<String> iconDrawerItems1 = ["home-48.png", "price-tag-50.png",
-      "airport-white.png", "clapperboard-white.png", "kurir-white.png",
-      "coin-wallet-60.png", "circled-menu-50.png"];
-
-    List<Color> colorIconDrawerItems1 = [Color(0xFF31C6E6), Color(0xFF35BBAB), Color(0xFFC289DB),
-    Color(0xFFF37C9C), Color(0xFF85B5F5), Color(0xFF4AB69E), Color(0xFF83B3F1)];
+    List<String> iconDrawerItems1 = ["homepage_nav.png", "promo_nav.png",
+      "rute_domestik_nav.png", "tiket_bioskop_nav.png", "kirim_paket_nav.png",
+      "dompet_nav.png", "produk_lain_nav.png"];
 
     List<String> titleDrawerItemsSettings = ["Akun Profil", "Upgrade Akun", "Info Cashback",
       "Verifikasi Akun", "Ganti Password", "Kunci Saldo", "Kebijakan & Regulasi"];
@@ -88,9 +67,9 @@ class _MainPageState extends State<MainPage> {
         "Video call Whatsapp"], ["Ubah password maksimal 3 bulan sekali"],
       ["Saldo lebih aman", "Proteksi dengan OTP"], ["Ketentuan dan layanan yang berlaku"]];
 
-    List<Icon> iconDrawerItemsSettings = [Icon(Icons.person_off), Icon(Icons.upgrade),
-      Icon(Icons.attach_money), Icon(Icons.fingerprint), Icon(Icons.password),
-      Icon(Icons.shield), Icon(Icons.dangerous)];
+    List<String> iconDrawerItemsSettings = ["akun_profil_nav.png", "update_akun_nav.png",
+      "cashback_nav.png", "verifikasi_akun_nav.png", "password_nav.png",
+      "kunci_saldo_nav.png", "kebijakan_nav.png"];
 
     PageController pageController = PageController(viewportFraction: 0.3);
 
@@ -130,8 +109,7 @@ class _MainPageState extends State<MainPage> {
                 margin: EdgeInsets.only(top: 5),
                 child: _tileContent(titleDrawerItems1[index], textDrawerItems1[index])
             ),
-            leading: IconImage(color: colorIconDrawerItems1[index],
-              pathImage: "assets/images/"+iconDrawerItems1[index],
+            leading: Image(image: AssetImage("assets/images/"+iconDrawerItems1[index])
             ),
             onTap: () {
               Navigator.pop(context);
@@ -156,7 +134,8 @@ class _MainPageState extends State<MainPage> {
                   margin: EdgeInsets.only(top: 10),
                   child: _tileContent(titleDrawerItemsSettings[index], textDrawerItemsSettings[index])
               ),
-              leading: iconDrawerItemsSettings[index],
+              leading: Image(image: AssetImage("assets/images/"+iconDrawerItemsSettings[index])
+              ),
               onTap: () {
                 Navigator.pop(context);
               },
@@ -180,88 +159,44 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
       ),
-      body: Container(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Flexible(
-              flex: 2,
-              child: GridView.count(
-                shrinkWrap: true,
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 20,
-                crossAxisCount: 5 ,
-                children: List.generate(15,(index){
-                  return Container(
-                      child: IconTextBottom(icon: iconMainMenu[index], text: titleIconMainMenu[index],)
-                  );
-                }),
-              ),
-            ),
-            SizedBox(height: 30,),
-            BigText(text: "Hotel keren untuk bobok cantik",),
-            SizedBox(height: 10,),
-            SmallText(text: "Tidur makin pules dan mimpi indah"),
-            Flexible(
-              flex: 2,
-              child: Container(
-                padding: EdgeInsets.only(left:5, right: 5, top: 20),
-                  child: CarouselSlider.builder(
-                    options: CarouselOptions(
-                      height: 300,
-                      aspectRatio: 16/9,
-                      enlargeCenterPage: false,
-                      viewportFraction: 0.85,
-                    ),
-                    itemCount: (imgListHotel.length / 2).round(),
-                    itemBuilder: (context, index, realIdx) {
-                      final int first = index * 2;
-                      final int second = first + 1;
-                      return Row(
-                        children: [first, second].map((idx) {
-                          return Expanded(
-                            flex: 1,
-                            child: Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10),
-                              child: _buildPageItem(imgListHotel[idx], hotelNameList[idx],
-                              cityHotelList[idx], classHotelList[idx], priceHotelList[idx])
-                            ),
-                          );
-                        }).toList(),
+      body: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.only(top:20, right: 20, left: 20, bottom: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  child: GridView.count(
+                    shrinkWrap: true,
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 20,
+                    crossAxisCount: 5 ,
+                    children: List.generate(15,(index){
+                      return Container(
+                          child: IconTextBottom(icon: iconMainMenu[index], text: titleIconMainMenu[index],)
                       );
-                    },
-                  )),
+                    }),
+                  ),
+                ),
+                SizedBox(height: 30,),
+                BigText(text: "Hotel keren untuk bobok cantik",),
+                SizedBox(height: 10,),
+                SmallText(text: "Tidur makin pules dan mimpi indah"),
+                HotelSectionView(),
+                SizedBox(height: 10,),
+                BigText(text: "Kamu pasti menyukai ini",),
+                SizedBox(height: 10,),
+                SmallText(text: "Banjir cashback dan info menarik!"),
+                SizedBox(height: 20,),
+                PromoSectionView(),
+
+              ],
             ),
-          ],
         ),
       ),
       drawer: Drawer(
         width: 350,
         child: drawerItems,
-      ),
-    );
-  }
-
-  Widget _buildPageItem(String image, String hotelName, String city, String classHotel,
-      String price){
-    return Container(
-      margin: EdgeInsets.only(left: 5, right: 5),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.network(image, fit: BoxFit.cover),
-          BigText(text: hotelName, size: 14, height: 1.5,),
-          Row(
-            children: [
-              const Icon(Icons.my_location,size: 12,),
-              SmallText(text: city, size: 10, height: 1.5,),
-            ],
-          ),
-          SmallText(text: classHotel + " mulai dari", height: 1.5,),
-          BigText(text: price, size: 14, height: 1.5,)
-        ],
       ),
     );
   }
@@ -286,10 +221,10 @@ class _MainPageState extends State<MainPage> {
           )
           ]
         ),
-        const SizedBox(height: 13,),
+        const SizedBox(height: 10,),
         const Divider(
           color: Colors.grey,
-          height: 5,
+          height: 1,
           thickness: 0.2,
           endIndent: 25,
         ),

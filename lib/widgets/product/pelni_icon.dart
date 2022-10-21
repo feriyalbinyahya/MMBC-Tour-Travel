@@ -8,7 +8,7 @@ class PELNIIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return const FineIcons(
       background: Color(0xFFEF4E4E),
-      allSideRadius: 12,
+      allSideRadius: 13,
       width: 35,
       minHeight: 35,
       elevationShadowColor: Colors.white,

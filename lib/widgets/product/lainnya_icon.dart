@@ -6,20 +6,6 @@ class LainnyaIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const FineIcons(
-      background: Color(0xFFFFFFFF),
-      allSideRadius: 12,
-      width: 35,
-      minHeight: 35,
-      elevationShadowColor: Colors.white,
-      elevation: 0,
-      cardImage: CardImage(
-        padding: 5,
-        width: 20,
-        height: 20,
-        imageType: ImageType.assetImage,
-        image: "assets/images/circled-menu-black-50.png",
-      ),
-    );
+    return const Image(image: AssetImage("assets/images/lainnya.png"));
   }
 }

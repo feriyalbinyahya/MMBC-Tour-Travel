@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SmallText extends StatelessWidget {
   Color? color;
@@ -12,11 +13,11 @@ class SmallText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(
-          color: color,
-          fontSize: size,
-          height: height,
-      ),
+      style: GoogleFonts.openSans(textStyle: TextStyle(
+        color: color,
+        fontSize: size,
+        height: height,
+      ),)
     );
   }
 }

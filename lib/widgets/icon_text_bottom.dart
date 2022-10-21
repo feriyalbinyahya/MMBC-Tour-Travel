@@ -15,7 +15,7 @@ class IconTextBottom extends StatelessWidget {
         children: [
           icon,
           SizedBox(height: 5,),
-          SmallText(text: text, size:10, height: 1,)
+          SmallText(text: text, size:9, height: 1,)
         ],
       ),
     );
