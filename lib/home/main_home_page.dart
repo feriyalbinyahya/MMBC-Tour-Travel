@@ -188,7 +188,7 @@ class _MainPageState extends State<MainPage> {
                 SizedBox(height: 10,),
                 SmallText(text: "Banjir cashback dan info menarik!"),
                 SizedBox(height: 20,),
-                PromoSectionView(),
+
 
               ],
             ),

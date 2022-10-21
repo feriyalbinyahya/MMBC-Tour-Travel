@@ -1,11 +1,9 @@
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:mmbc_tour_and_travel/home/repository.dart';
+import 'package:get/get.dart';
+import 'package:mmbc_tour_and_travel/controllers/homepage/recommended_hotel_controller.dart';
 
-import '../entities/hotel.dart';
+import '../models/recommended_hotel_model.dart';
 import '../widgets/big_text.dart';
 import '../widgets/small_text.dart';
 
@@ -17,51 +15,39 @@ class HotelSectionView extends StatefulWidget {
 }
 
 class _HotelSectionViewState extends State<HotelSectionView> {
-  List<Hotel> _hotels = [];
-  RepositoryHome repo = RepositoryHome();
-
-  getData() async {
-    repo.getData();
-    _hotels = await repo.getHotelData();
-  }
-
-  @override
-  void initState() {
-    getData();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-          padding: EdgeInsets.only(left:5, right: 5, top: 20),
-          child: CarouselSlider.builder(
-            options: CarouselOptions(
-              height: 300,
-              aspectRatio: 16/9,
-              enlargeCenterPage: false,
-              viewportFraction: 0.85,
-            ),
-            itemCount: (_hotels.length / 2).round(),
-            itemBuilder: (context, index, realIdx) {
-              final int first = index * 2;
-              final int second = first + 1;
-              return Row(
-                children: [first, second].map((idx) {
-                  return Expanded(
-                    flex: 1,
-                    child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10),
-                        child: _buildPageItem(_hotels[idx])
-                    ),
-                  );
-                }).toList(),
-              );
-            },
+    return GetBuilder<RecommendedHotelController>(builder: (recommendedHotel){
+      return Container(
+        padding: EdgeInsets.only(left:5, right: 5, top: 20),
+        child: CarouselSlider.builder(
+          options: CarouselOptions(
+            height: 300,
+            aspectRatio: 16/9,
+            enlargeCenterPage: false,
+            viewportFraction: 0.85,
           ),
-    );
+          itemCount: (recommendedHotel.recommendedHotelList.length / 2).round(),
+          itemBuilder: (context, index, realIdx) {
+            final int first = index * 2;
+            final int second = first + 1;
+            return Row(
+              children: [first, second].map((idx) {
+                return Expanded(
+                  flex: 1,
+                  child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      child: _buildPageItem(recommendedHotel.recommendedHotelList[idx])
+                  ),
+                );
+              }).toList(),
+            );
+          },
+        ),
+      );
+    });
   }
-  Widget _buildPageItem(Hotel hotel){
+  Widget _buildPageItem(RecommendedHotel hotel){
     return Container(
       margin: EdgeInsets.only(left: 5, right: 5),
       child: Column(

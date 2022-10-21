@@ -2,11 +2,11 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
-import '../entities/hotel.dart';
-import '../entities/promo.dart';
+import '../models/recommended_hotel_model.dart';
+import '../models/recommended_promo_model.dart';
 
 class RepositoryHome {
-  List<Hotel> _hotels = [];
+  List<RecommendedHotel> _hotels = [];
   List<Promo> _promo = [];
 
   Future getData() async {
@@ -20,7 +20,7 @@ class RepositoryHome {
 
       if(response[0].statusCode == 200){
         Iterable it = jsonDecode(response[0].body);
-        List<Hotel> hotels = it.map((e) => Hotel.fromJson(e)).toList();
+        List<RecommendedHotel> hotels = it.map((e) => RecommendedHotel.fromJson(e)).toList();
         _hotels.addAll(hotels);
       }
 
