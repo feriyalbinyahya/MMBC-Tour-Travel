@@ -6,6 +6,6 @@ class BusTravelIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Image(image: AssetImage("assets/images/bus_travel.png"));
+    return const Image(width: 40 , height: 40, image: AssetImage("assets/images/bus_travel.png"));
   }
 }

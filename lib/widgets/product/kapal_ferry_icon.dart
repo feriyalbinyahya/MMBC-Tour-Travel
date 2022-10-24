@@ -6,6 +6,6 @@ class KapalFerryIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Image(image: AssetImage("assets/images/kapal_ferry.png"));
+    return const Image(width: 40 , height: 40, image: AssetImage("assets/images/kapal_ferry.png"));
   }
 }

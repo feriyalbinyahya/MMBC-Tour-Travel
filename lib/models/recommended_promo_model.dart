@@ -1,16 +1,22 @@
 class Promo {
-  final String name;
-  final String urlImg;
+  int? _id;
+  late String _promo;
+  late String _urlImg;
 
-  Promo({
-    required this.name,
-    required this.urlImg
-  });
+  String get promo => _promo;
 
-  factory Promo.fromJson(Map<String, dynamic> json){
-    return Promo(
-        name: json['promo'],
-        urlImg: json['urlImg']
-    );
+  String get urlImg => _urlImg;
+
+
+  Promo(
+      {required promo, required urlImg}) {
+    this._promo = promo;
+    this._urlImg = urlImg;
+  }
+
+  Promo.fromJson(Map<String, dynamic> json) {
+    _id = json['id'];
+    _promo = json['promo'];
+    _urlImg = json['urlImg'];
   }
 }

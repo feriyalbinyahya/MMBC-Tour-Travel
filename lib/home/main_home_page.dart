@@ -55,9 +55,9 @@ class _MainPageState extends State<MainPage> {
       "CGV", "IMAX", "The Premiere"], ["Reguler", "Instant", "SameDay", "Kargo"],
     ["Gopay", "ShopeePay", "LinkAja", "OVO"], ["Semua ada disini"]];
 
-    List<String> iconDrawerItems1 = ["homepage_nav.png", "promo_nav.png",
-      "rute_domestik_nav.png", "tiket_bioskop_nav.png", "kirim_paket_nav.png",
-      "dompet_nav.png", "produk_lain_nav.png"];
+    List<String> iconDrawerItems1 = ["homepage.png", "diskon.png",
+      "rute_domestik.png", "tiket.png", "kirim_paket.png",
+      "dompet.png", "produk_jasa.png"];
 
     List<String> titleDrawerItemsSettings = ["Akun Profil", "Upgrade Akun", "Info Cashback",
       "Verifikasi Akun", "Ganti Password", "Kunci Saldo", "Kebijakan & Regulasi"];
@@ -67,9 +67,9 @@ class _MainPageState extends State<MainPage> {
         "Video call Whatsapp"], ["Ubah password maksimal 3 bulan sekali"],
       ["Saldo lebih aman", "Proteksi dengan OTP"], ["Ketentuan dan layanan yang berlaku"]];
 
-    List<String> iconDrawerItemsSettings = ["akun_profil_nav.png", "update_akun_nav.png",
-      "cashback_nav.png", "verifikasi_akun_nav.png", "password_nav.png",
-      "kunci_saldo_nav.png", "kebijakan_nav.png"];
+    List<String> iconDrawerItemsSettings = ["akun_profil.png", "upgrade.png",
+      "cashback.png", "verifikasi.png", "ganti_password.png",
+      "kunci_saldo.png", "kebijakan.png"];
 
     PageController pageController = PageController(viewportFraction: 0.3);
 
@@ -106,11 +106,11 @@ class _MainPageState extends State<MainPage> {
       children: <Widget>[drawerHeader,...List.generate(titleDrawerItems1.length, (index) =>
           ListTile(
             title: Container(
-                margin: EdgeInsets.only(top: 5),
+                margin: EdgeInsets.only(top: 10),
                 child: _tileContent(titleDrawerItems1[index], textDrawerItems1[index])
             ),
-            leading: Image(image: AssetImage("assets/images/"+iconDrawerItems1[index])
-            ),
+            leading: Image(image: AssetImage("assets/images/"+iconDrawerItems1[index],)
+            , width: 30, height: 30),
             onTap: () {
               Navigator.pop(context);
             },
@@ -135,7 +135,7 @@ class _MainPageState extends State<MainPage> {
                   child: _tileContent(titleDrawerItemsSettings[index], textDrawerItemsSettings[index])
               ),
               leading: Image(image: AssetImage("assets/images/"+iconDrawerItemsSettings[index])
-              ),
+              , width: 30, height: 30),
               onTap: () {
                 Navigator.pop(context);
               },
@@ -188,6 +188,7 @@ class _MainPageState extends State<MainPage> {
                 SizedBox(height: 10,),
                 SmallText(text: "Banjir cashback dan info menarik!"),
                 SizedBox(height: 20,),
+                PromoSectionView(),
 
 
               ],
@@ -206,7 +207,7 @@ class _MainPageState extends State<MainPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         BigText(text: title,size: 16, color: AppColors.titleColorDark,),
-        SizedBox(height: 5,),
+        SizedBox(height: 3,),
         Wrap(
           spacing: 5,
           runSpacing: 5,

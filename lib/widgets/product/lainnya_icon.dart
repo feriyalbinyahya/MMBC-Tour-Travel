@@ -6,6 +6,6 @@ class LainnyaIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Image(image: AssetImage("assets/images/lainnya.png"));
+    return const Image(width: 40 , height: 40, image: AssetImage("assets/images/lainnya.png"));
   }
 }
