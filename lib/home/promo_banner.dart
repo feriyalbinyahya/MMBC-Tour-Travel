@@ -35,7 +35,14 @@ class _PromoSectionViewState extends State<PromoSectionView> {
                 }),
             itemCount: recommendedPromo.recommendedPromoList.length,
             itemBuilder: (context, index, realIdx) {
-              return _buildContent(recommendedPromo.recommendedPromoList[index]);
+              return recommendedPromo.isLoaded?_buildContent(recommendedPromo.recommendedPromoList[index]):const SizedBox(
+                height: 300,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.black,
+                  ),
+                ),
+              );
             },
           ),
           Row(

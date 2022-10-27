@@ -12,6 +12,9 @@ class RecommendedHotelController extends GetxController {
   List<RecommendedHotel> _recommendedHotelList=[];
   List<RecommendedHotel> get recommendedHotelList => _recommendedHotelList;
 
+  bool _isLoaded = false;
+  bool get isLoaded => _isLoaded;
+
   Future<void> getRecommendedHotelList() async {
     Response response = await recommendedHotelRepo.getRecommendedHotelList();
 
@@ -24,6 +27,7 @@ class RecommendedHotelController extends GetxController {
         RecommendedHotel hotel = RecommendedHotel.fromJson(item);
         _recommendedHotelList.add(hotel);
       }
+      _isLoaded = true;
       update();
     }
   }

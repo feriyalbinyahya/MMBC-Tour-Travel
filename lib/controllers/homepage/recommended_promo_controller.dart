@@ -11,6 +11,9 @@ class RecommendedPromoController extends GetxController {
   List<Promo> _recommendedPromoList=[];
   List<Promo> get recommendedPromoList => _recommendedPromoList;
 
+  bool _isLoaded = false;
+  bool get isLoaded => _isLoaded;
+
   Future<void> getRecommendedPromoList() async {
     Response response = await recommendedPromoRepo.getRecommendedPromoList();
 
@@ -23,6 +26,7 @@ class RecommendedPromoController extends GetxController {
         Promo promo = Promo.fromJson(item);
         _recommendedPromoList.add(promo);
       }
+      _isLoaded = true;
       update();
     }
   }

@@ -6,8 +6,9 @@ class BigText extends StatelessWidget {
   final String text;
   double size;
   double height;
+  FontWeight weight;
   BigText({Key? key, this.color = const Color(0xFF000000),
-    required this.text, this.size=20, this.height=1.2}) : super(key: key);
+    required this.text, this.size=20, this.height=1.2, this.weight=FontWeight.w400}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class BigText extends StatelessWidget {
       style: GoogleFonts.openSans(textStyle: TextStyle(
         color: color,
         fontSize: size,
-        fontWeight: FontWeight.w400,
+        fontWeight: weight,
         height: height,
       ),)
     );

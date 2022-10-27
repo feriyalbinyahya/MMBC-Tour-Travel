@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mmbc_tour_and_travel/home/promo_banner.dart';
 import 'package:mmbc_tour_and_travel/utils/colors.dart';
 import 'package:mmbc_tour_and_travel/widgets/icon_text_bottom.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:mmbc_tour_and_travel/widgets/image_icon.dart';
-import 'package:fine_icons/fine_icons.dart';
 import 'package:mmbc_tour_and_travel/widgets/product/bus_akap_icon.dart';
 import 'package:mmbc_tour_and_travel/widgets/product/flight_icon.dart';
 import 'package:mmbc_tour_and_travel/widgets/product/isi_pulsa_icon.dart';
@@ -12,6 +9,8 @@ import 'package:mmbc_tour_and_travel/widgets/product/kapal_ferry_icon.dart';
 import 'package:mmbc_tour_and_travel/widgets/product/kirim_paket_icon.dart';
 import 'package:mmbc_tour_and_travel/widgets/product/tiket_bioskop_icon.dart';
 import 'package:mmbc_tour_and_travel/widgets/product/transfer_uang_icon.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/big_text.dart';
 import '../widgets/dot_circle.dart';
@@ -34,6 +33,17 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  @override
+  void initState() {
+    super.initState();
+    initialization();
+  }
+
+  void initialization() async {
+    Future.delayed(Duration(seconds: 3)).then((value) => {
+      FlutterNativeSplash.remove()
+    });
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -144,24 +154,65 @@ class _MainPageState extends State<MainPage> {
       ],
     );
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.mainColor,
-        title: const Text(
-          "MMBC Tour & Travel",
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.shopping_cart,
-            ),
-            onPressed: () {
-            },
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(120.0),
+        child: Container(
+          child: Column(
+            children: [
+              AppBar(
+                backgroundColor: AppColors.mainColor,
+                title: Text(
+                  "MMBC TOUR & TRAVEL",
+                  style: GoogleFonts.openSans(textStyle: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700
+                  )),
+                ),
+                actions: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.shopping_cart,
+                    ),
+                    onPressed: () {
+                    },
+                  ),
+                ],
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 15, right: 20, left: 20),
+                child: InkWell(
+                  onTap: (){},
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            SmallText(text: "Masuk atau Daftar", size: 15, height: 1.5,),
+                            SmallText(text: "Untung lebih banyak sebagai member!", size: 10 , height: 1.5),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 15,),
+                      const CircleAvatar(
+                        backgroundColor: Color(0xff626262),
+                        radius: 15,
+                        child: Icon(
+                          Icons.person,
+                          color: Color(0xffF9F9F9),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
       body: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.only(top:20, right: 20, left: 20, bottom: 20),
+            padding: EdgeInsets.only(top:5, right: 20, left: 20, bottom: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -212,11 +263,11 @@ class _MainPageState extends State<MainPage> {
           spacing: 5,
           runSpacing: 5,
           children: <Widget>[...List.generate(listTopic.length, (index) =>
-          index==0?SmallText(text: listTopic[index], color: AppColors.textColor2,):
+          index==0?SmallText(text: listTopic[index], color: AppColors.textColor2, weight: FontWeight.w300, size: 11,):
           Wrap(
             children: [
               DotCircle(color: Colors.grey, width: 3, height: 3,mtop: 5, mleft: 3, mright: 8,),
-              SmallText(text: listTopic[index], color: AppColors.textColor2),
+              SmallText(text: listTopic[index], color: AppColors.textColor2, weight: FontWeight.w300, size: 11,),
             ],
           )
           )

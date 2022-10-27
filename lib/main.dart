@@ -4,10 +4,12 @@ import 'package:mmbc_tour_and_travel/controllers/homepage/recommended_hotel_cont
 
 import 'controllers/homepage/recommended_promo_controller.dart';
 import 'home/main_home_page.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'helper/dependencies.dart' as dep;
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await dep.init();
   runApp(const MyApp());
 }
