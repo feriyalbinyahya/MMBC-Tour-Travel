@@ -3,9 +3,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
 import 'package:mmbc_tour_and_travel/controllers/homepage/recommended_hotel_controller.dart';
 
-import '../models/recommended_hotel_model.dart';
-import '../widgets/big_text.dart';
-import '../widgets/small_text.dart';
+import '../../models/recommended_hotel_model.dart';
+import '../../widgets/big_text.dart';
+import '../../widgets/small_text.dart';
 
 class HotelSectionView extends StatefulWidget {
   const HotelSectionView({Key? key}) : super(key: key);

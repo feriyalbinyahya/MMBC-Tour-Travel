@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mmbc_tour_and_travel/controllers/homepage/recommended_hotel_controller.dart';
+import 'package:mmbc_tour_and_travel/pages/home/main_home_page.dart';
+import 'package:mmbc_tour_and_travel/routes/route_helper.dart';
 
 import 'controllers/homepage/recommended_promo_controller.dart';
-import 'home/main_home_page.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'helper/dependencies.dart' as dep;
 
@@ -25,10 +26,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: MainPage(),
+      initialRoute: RouteHelper.initial,
+      getPages: RouteHelper.routes,
     );
   }
 }

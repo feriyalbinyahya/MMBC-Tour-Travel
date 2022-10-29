@@ -4,7 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:mmbc_tour_and_travel/controllers/homepage/recommended_promo_controller.dart';
 import 'package:get/get.dart';
 
-import '../models/recommended_promo_model.dart';
+import '../../models/recommended_promo_model.dart';
 
 class PromoSectionView extends StatefulWidget {
   const PromoSectionView({Key? key}) : super(key: key);

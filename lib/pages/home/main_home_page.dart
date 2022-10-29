@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mmbc_tour_and_travel/home/promo_banner.dart';
+import 'package:get/get.dart';
+import 'package:mmbc_tour_and_travel/pages/home/promo_banner.dart';
 import 'package:mmbc_tour_and_travel/utils/colors.dart';
 import 'package:mmbc_tour_and_travel/widgets/icon_text_bottom.dart';
 import 'package:mmbc_tour_and_travel/widgets/product/bus_akap_icon.dart';
@@ -12,17 +13,18 @@ import 'package:mmbc_tour_and_travel/widgets/product/transfer_uang_icon.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../widgets/big_text.dart';
-import '../widgets/dot_circle.dart';
-import '../widgets/product/bus_travel_icon.dart';
-import '../widgets/product/flight_class_icon.dart';
-import '../widgets/product/gopay_icon.dart';
-import '../widgets/product/hotel_icon.dart';
-import '../widgets/product/kai_icon.dart';
-import '../widgets/product/lainnya_icon.dart';
-import '../widgets/product/pelni_icon.dart';
-import '../widgets/product/pln_icon.dart';
-import '../widgets/small_text.dart';
+import '../../routes/route_helper.dart';
+import '../../widgets/big_text.dart';
+import '../../widgets/dot_circle.dart';
+import '../../widgets/product/bus_travel_icon.dart';
+import '../../widgets/product/flight_class_icon.dart';
+import '../../widgets/product/gopay_icon.dart';
+import '../../widgets/product/hotel_icon.dart';
+import '../../widgets/product/kai_icon.dart';
+import '../../widgets/product/lainnya_icon.dart';
+import '../../widgets/product/pelni_icon.dart';
+import '../../widgets/product/pln_icon.dart';
+import '../../widgets/small_text.dart';
 import 'hotel_banner.dart';
 
 class MainPage extends StatefulWidget {
@@ -180,8 +182,10 @@ class _MainPageState extends State<MainPage> {
               ),
               Container(
                 padding: EdgeInsets.only(top: 15, right: 20, left: 20),
-                child: InkWell(
-                  onTap: (){},
+                child: GestureDetector(
+                  onTap: (){
+                    Get.toNamed(RouteHelper.login);
+                  },
                   child: Row(
                     children: [
                       Expanded(

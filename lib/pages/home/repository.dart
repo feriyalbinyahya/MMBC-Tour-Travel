@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
-import '../models/recommended_hotel_model.dart';
-import '../models/recommended_promo_model.dart';
+import '../../models/recommended_hotel_model.dart';
+import '../../models/recommended_promo_model.dart';
 
 class RepositoryHome {
   List<RecommendedHotel> _hotels = [];
