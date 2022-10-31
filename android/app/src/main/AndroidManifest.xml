@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mmbc_tour_and_travel">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="MMBC TOUR &amp; TRAVEL"
+        android:label="MMBC TOUR TRAVEL"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
