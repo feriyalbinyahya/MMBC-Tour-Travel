@@ -51,13 +51,13 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/logoapp.png"
+  image_path: "assets/images/logommbc2.png"
   web:
     generate: true
-    image_path: "assets/images/logoapp.png"
+    image_path: "assets/images/logommbc2.png"
   windows:
     generate: true
-    image_path: "assets/images/logoapp.png"
+    image_path: "assets/images/logommbc2.png"
     icon_size: 48
 
 flutter_native_splash:
