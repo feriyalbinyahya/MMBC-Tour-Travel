@@ -45,6 +45,7 @@ class _PromoSectionViewState extends State<PromoSectionView> {
               );
             },
           ),
+          SizedBox(height: 10,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: recommendedPromo.recommendedPromoList.asMap().entries.map((entry) {

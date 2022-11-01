@@ -43,6 +43,7 @@ dependencies:
   get: ^4.6.5
   flutter_native_splash: ^2.2.12
   flutter_launcher_icons: ^0.10.0
+  persistent_bottom_nav_bar: any
 
 dev_dependencies:
   flutter_test:

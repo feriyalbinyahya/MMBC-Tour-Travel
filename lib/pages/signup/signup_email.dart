@@ -9,23 +9,20 @@ import '../../widgets/app_bar.dart';
 import '../../widgets/drawer.dart';
 import '../../widgets/small_text.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class SignUpEmail extends StatefulWidget {
+  const SignUpEmail({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignUpEmail> createState() => _SignUpEmailState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpEmailState extends State<SignUpEmail> {
   @override
   Widget build(BuildContext context) {
-    bool? check1 = false;
-    var usernameController = TextEditingController();
-    var passwordController = TextEditingController();
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(55),
-        child: MyAppBar(titlePage: "Login"),
+        child: MyAppBar(titlePage: "Daftar Akun Baru"),
       ),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
@@ -35,71 +32,34 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               Align(
                 alignment: Alignment.topLeft,
-                child: BigText(text: "Login"),
+                child: BigText(text: "Registrasi"),
               ),
               SizedBox(height: 20,),
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(10.0),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 6,
-                      spreadRadius: 5,
-                      offset: Offset(1, 6),
-                      color: Colors.grey.withOpacity(0.2)
-                    )
-                  ]
+                    boxShadow: [
+                      BoxShadow(
+                          blurRadius: 6,
+                          spreadRadius: 5,
+                          offset: Offset(1, 6),
+                          color: Colors.grey.withOpacity(0.2)
+                      )
+                    ]
                 ),
                 padding: EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 20),
                 child: Column(
                   children: [
-                    TextField(
-                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                          fontSize: 14
-                      )),
-                      controller: usernameController,
-                      decoration: InputDecoration(
-                        labelText: "Username",
-                        prefixIcon: Icon(Icons.person, color: AppColors.mainColor,),
 
-                      ),
-                    ),
                     SizedBox(height: 30,),
-                    TextField(
-                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                          fontSize: 14
-                      )),
-                      controller: passwordController,
-                      decoration: InputDecoration(
-                          labelText: "password",
-                          prefixIcon: Icon(Icons.key_rounded, color: AppColors.mainColor,)
-                      ),
-                    ),
+
                     SizedBox(height: 20,),
                     Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          SizedBox(
-                            width: 30,
-                            height: 24,
-                            child: Transform.scale(
-                              scale: 0.8,
-                              child: Checkbox(
-                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                value: check1,
-                                checkColor: Colors.white,
-                                activeColor: AppColors.mainColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(5.0),
-                                  ),
-                                ),
-                                onChanged: (isChecked) {},
-                              ),
-                            ),
-                          ),
+
                           SmallText(text: "Show password")
                         ],
                       ),
@@ -130,13 +90,13 @@ class _LoginPageState extends State<LoginPage> {
                     Stack(
                       children: [
                         Padding(padding: EdgeInsets.only(top: 5),
-                        child: const Divider(
-                          color: Colors.grey,
-                          height: 1,
-                          thickness: 0.8,
-                          indent: 20,
-                          endIndent: 20,
-                        )),
+                            child: const Divider(
+                              color: Colors.grey,
+                              height: 1,
+                              thickness: 0.8,
+                              indent: 20,
+                              endIndent: 20,
+                            )),
                         Container(
                           margin: EdgeInsets.only(left: 132),
                           width: 50,

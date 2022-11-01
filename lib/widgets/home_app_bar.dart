@@ -5,23 +5,25 @@ import 'package:mmbc_tour_and_travel/widgets/small_text.dart';
 
 import '../utils/colors.dart';
 
-class MyAppBar extends StatelessWidget {
-  final String titlePage;
-  MyAppBar({Key? key, required this.titlePage}) : super(key: key);
+class HomeAppBar extends StatelessWidget {
+  HomeAppBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: AppColors.mainColor,
       title: Text(
-        titlePage,
+        "MMBC TOUR & TRAVEL",
         style: GoogleFonts.openSans(textStyle: TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w700
         )),
       ),
       actions: [
-        IconButton(onPressed: (){}, icon: Icon(Icons.apps))
+        IconButton(
+          icon: Icon(Icons.shopping_cart),
+          onPressed: (){},
+        )
       ],
     );
   }
