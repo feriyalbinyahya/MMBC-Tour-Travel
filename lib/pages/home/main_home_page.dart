@@ -61,7 +61,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       backgroundColor: Color(0xffFFFFFF),
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
+        preferredSize: const Size.fromHeight(56),
         child: Container(
           child: Column(
             children: [
@@ -72,6 +72,7 @@ class _MainPageState extends State<MainPage> {
       ),
       body: PersistentTabView(
         context,
+        hideNavigationBarWhenKeyboardShows: true,
         screens: screens(),
         items: navBarItems(),
         navBarStyle: NavBarStyle.style3,

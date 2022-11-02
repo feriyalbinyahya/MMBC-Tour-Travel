@@ -46,19 +46,20 @@ class HomePageScreen extends StatelessWidget {
 
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.only(top:5, right: 20, left: 20, bottom: 20),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              decoration: BoxDecoration(
-                  color: Color(0xffF9F9F9),
-                  border: Border(
-                      bottom: BorderSide(
-                          color: Color(0xffE5E5E5),
-                          width: 0.5
-                      )
-                  )
+              decoration: const BoxDecoration(
+                color: Color(0xffeeeeee),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xffd2d2d2),
+                    blurRadius: 1,
+                    spreadRadius: 0.05,
+                    // offset to act as bottom border color
+                    offset: Offset(0.5, 0.8),
+                  ),
+                ],
               ),
               padding: EdgeInsets.only(top: 10, right: 20, left: 20, bottom: 10),
               child: GestureDetector(
@@ -90,29 +91,38 @@ class HomePageScreen extends StatelessWidget {
               ),
             ),
             Container(
-              child: GridView.count(
-                shrinkWrap: true,
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 20,
-                crossAxisCount: 5 ,
-                children: List.generate(15,(index){
-                  return Container(
-                      child: IconTextBottom(icon: iconMainMenu[index], text: titleIconMainMenu[index],)
-                  );
-                }),
+              padding: EdgeInsets.only(top:0, right: 20, left: 20, bottom: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 15),
+                    child: GridView.count(
+                      shrinkWrap: true,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 20,
+                      crossAxisCount: 5 ,
+                      children: List.generate(15,(index){
+                        return Container(
+                            child: IconTextBottom(icon: iconMainMenu[index], text: titleIconMainMenu[index],)
+                        );
+                      }),
+                    ),
+                  ),
+                  SizedBox(height: 30,),
+                  BigText(text: "Hotel keren untuk bobok cantik",),
+                  SizedBox(height: 10,),
+                  SmallText(text: "Tidur makin pules dan mimpi indah"),
+                  HotelSectionView(),
+                  SizedBox(height: 10,),
+                  BigText(text: "Kamu pasti menyukai ini",),
+                  SizedBox(height: 10,),
+                  SmallText(text: "Banjir cashback dan info menarik!"),
+                  SizedBox(height: 20,),
+                  PromoSectionView(),
+                ],
               ),
             ),
-            SizedBox(height: 30,),
-            BigText(text: "Hotel keren untuk bobok cantik",),
-            SizedBox(height: 10,),
-            SmallText(text: "Tidur makin pules dan mimpi indah"),
-            HotelSectionView(),
-            SizedBox(height: 10,),
-            BigText(text: "Kamu pasti menyukai ini",),
-            SizedBox(height: 10,),
-            SmallText(text: "Banjir cashback dan info menarik!"),
-            SizedBox(height: 20,),
-            PromoSectionView(),
           ],
         ),
       ),

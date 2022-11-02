@@ -46,6 +46,7 @@ dependencies:
   persistent_bottom_nav_bar: any
 
 dev_dependencies:
+  flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
 
@@ -64,7 +65,10 @@ flutter_icons:
 
 flutter_native_splash:
   color: "#0769B0"
-  image: "assets/images/logo_splash_screen.png"
+  image: "assets/images/logommbc_splash.png"
+  android_12:
+    image: "assets/images/logommbc_splash12.png"
+    color: "#0769B0"
   android: true
   ios: true
   web: true

@@ -105,26 +105,29 @@ class _MyDrawerState extends State<MyDrawer> {
       children: <Widget>[drawerHeader,...List.generate(titleDrawerItems1.length, (index) =>
           ListTile(
             title: Container(
-                margin: EdgeInsets.only(top: 10),
+                margin: EdgeInsets.only(top: 8),
                 child: _tileContent(titleDrawerItems1[index], textDrawerItems1[index])
             ),
-            leading: Image(image: AssetImage("assets/images/"+iconDrawerItems1[index],)
-                , width: 30, height: 30),
+            leading: Container(
+              margin: EdgeInsets.only(left: 12),
+              child: Image(image: AssetImage("assets/images/"+iconDrawerItems1[index],)
+                  , width: 25, height: 25),
+            ),
             onTap: () {
               Navigator.pop(context);
             },
           ),),
-        SizedBox(
-          height: 10,
-        ),
         ListTile(
           trailing: isPressedProductDrawer?Icon(Icons.arrow_left_rounded):Icon(Icons.arrow_right_rounded),
           title: Container(
-              margin: EdgeInsets.only(top: 10),
+              margin: EdgeInsets.only(top: 8),
               child: _tileContent("Produk", ["Produk jasa"])
           ),
-          leading: Image(image: AssetImage("assets/images/produk_jasa.png",)
-              , width: 30, height: 30),
+          leading: Container(
+            margin: EdgeInsets.only(left: 12),
+            child: Image(image: AssetImage("assets/images/produk_jasa.png",)
+                , width: 25, height: 25),
+          ),
           onTap: () {
             if(!isPressedProductDrawer){
               setState(() {
@@ -137,52 +140,55 @@ class _MyDrawerState extends State<MyDrawer> {
             }
           },
         ),
-        Column(
-          children: isPressedProductDrawer?
-          [...List.generate(titleDrawerProduct.length, (index) =>
-              ListTile(
-                trailing: productMenu[index].length>0?(isPressedProduct[index]?Icon(Icons.arrow_left_rounded):Icon(Icons.arrow_right_rounded)):null,
-                title: Column(
-                  children: [
-                    Container(
-                        margin: EdgeInsets.only(top: 10),
-                        child: _tileContentProduct(titleDrawerProduct[index])
-                    ),
-                    Column(
-                      children: isPressedProduct[index]?
-                        [...List.generate(productMenu[index].length, (idx) =>
-                        ListTile(
-                            title: Container(
-                              child: _tileContentProduct((productMenu[index])[idx]),
-                            ),
-                            onTap: (){}
-                        )
-                    )]:[],
-                    )
-                  ],
-                ),
-                leading: Icon(iconDrawerProduct[index], color: Color(0xff707070),),
-                onTap: () {
-                  if(productMenu[index].length>0){
-                    if(!isPressedProduct[index]){
-                      setState(() {
-                        //agar cuma satu button tile yang dropdown list nya
-                        for(int i=0; i<isPressedProduct.length; i++){
-                          isPressedProduct[i] = false;
-                        }
-                        isPressedProduct[index] = true;
-                      });
-                    }else{
-                      setState(() {
-                        isPressedProduct[index] = false;
-                      });
+        Container(
+          padding: EdgeInsets.only(left: 20),
+          child: Column(
+            children: isPressedProductDrawer?
+            [...List.generate(titleDrawerProduct.length, (index) =>
+                ListTile(
+                  trailing: productMenu[index].length>0?(isPressedProduct[index]?Icon(Icons.arrow_left_rounded):Icon(Icons.arrow_right_rounded)):null,
+                  title: Column(
+                    children: [
+                      Container(
+                          margin: EdgeInsets.only(top: 10),
+                          child: _tileContentProduct(titleDrawerProduct[index])
+                      ),
+                      Column(
+                        children: isPressedProduct[index]?
+                          [...List.generate(productMenu[index].length, (idx) =>
+                          ListTile(
+                              title: Container(
+                                child: _tileContentProduct((productMenu[index])[idx]),
+                              ),
+                              onTap: (){}
+                          )
+                      )]:[],
+                      )
+                    ],
+                  ),
+                  leading: Icon(iconDrawerProduct[index], color: Color(0xff707070),),
+                  onTap: () {
+                    if(productMenu[index].length>0){
+                      if(!isPressedProduct[index]){
+                        setState(() {
+                          //agar cuma satu button tile yang dropdown list nya
+                          for(int i=0; i<isPressedProduct.length; i++){
+                            isPressedProduct[i] = false;
+                          }
+                          isPressedProduct[index] = true;
+                        });
+                      }else{
+                        setState(() {
+                          isPressedProduct[index] = false;
+                        });
+                      }
                     }
-                  }
-                },
-              ),
+                  },
+                ),
+            ),
+            ]
+                :[],
           ),
-          ]
-              :[],
         ),
         SizedBox(height: 10,),
         Container(
@@ -195,14 +201,18 @@ class _MyDrawerState extends State<MyDrawer> {
             ),
           ),
         ),
+        SizedBox(height: 8,),
         ...List.generate(titleDrawerItemsSettings.length, (index) =>
             ListTile(
               title: Container(
-                  margin: EdgeInsets.only(top: 10),
+                  margin: EdgeInsets.only(top: 8),
                   child: _tileContent(titleDrawerItemsSettings[index], textDrawerItemsSettings[index])
               ),
-              leading: Image(image: AssetImage("assets/images/"+iconDrawerItemsSettings[index])
-                  , width: 30, height: 30),
+              leading: Container(
+                margin: EdgeInsets.only(left: 12),
+                child: Image(image: AssetImage("assets/images/"+iconDrawerItemsSettings[index])
+                    , width: 25, height: 25),
+              ),
               onTap: () {
 
               },
@@ -215,7 +225,7 @@ class _MyDrawerState extends State<MyDrawer> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        BigText(text: title,size: 16, color: AppColors.titleColorDark,),
+        BigText(text: title,size: 14, color: AppColors.titleColorDark,),
         SizedBox(height: 3,),
         Wrap(
             spacing: 5,
@@ -246,7 +256,7 @@ class _MyDrawerState extends State<MyDrawer> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        BigText(text: title,size: 16, color: AppColors.titleColorDark,),
+        BigText(text: title,size: 12, color: AppColors.titleColorDark,),
         SizedBox(height: 3,),
         const SizedBox(height: 10,),
         const Divider(
