@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mmbc_tour_and_travel/controllers/homepage/recommended_hotel_controller.dart';
 import 'package:mmbc_tour_and_travel/pages/home/main_home_page.dart';
 import 'package:mmbc_tour_and_travel/routes/route_helper.dart';
+import 'package:mmbc_tour_and_travel/utils/colors.dart';
 
 import 'controllers/homepage/recommended_promo_controller.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -26,6 +28,17 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        appBarTheme: AppBarTheme(
+          systemOverlayStyle: SystemUiOverlayStyle( //<-- SEE HERE
+            // Status bar color
+            statusBarColor: AppColors.mainColor,
+            statusBarIconBrightness: Brightness.light,
+            statusBarBrightness: Brightness.light,
+          ),
+        ),
+      ),
       home: MainPage(),
       initialRoute: RouteHelper.initial,
       getPages: RouteHelper.routes,

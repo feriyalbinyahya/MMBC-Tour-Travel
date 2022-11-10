@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:mmbc_tour_and_travel/data/repository/homepage/recommended_hotel_repo.dart';
 
@@ -18,9 +20,8 @@ class RecommendedHotelController extends GetxController {
     Response response = await recommendedHotelRepo.getRecommendedHotelList();
 
     if(response.statusCode == 200){
-      print("masukk");
       _recommendedHotelList = [];
-      List<dynamic> it = response.body;
+      List<dynamic> it = jsonDecode(response.body);
 
       for(var item in it){
         RecommendedHotel hotel = RecommendedHotel.fromJson(item);

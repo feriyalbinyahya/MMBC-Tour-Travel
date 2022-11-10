@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:mmbc_tour_and_travel/controllers/auth/auth_controller.dart';
+import 'package:mmbc_tour_and_travel/routes/route_helper.dart';
 import 'package:mmbc_tour_and_travel/widgets/small_text.dart';
 
 import '../utils/colors.dart';
@@ -76,7 +80,7 @@ class _MyDrawerState extends State<MyDrawer> {
       height: 130,
       child: DrawerHeader(
         padding: EdgeInsets.only(top: 30, left: 20, right: 20, bottom: 20),
-        decoration: BoxDecoration(color: Color(0xFFe9e9e9)),
+        decoration: BoxDecoration(color: Color(0xFFf4f4f4)),
         child: Container(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,10 +93,22 @@ class _MyDrawerState extends State<MyDrawer> {
                 child:  Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Feriyal Bin Yahya", style: TextStyle(height: 1.5),),
-                    SmallText(text: "feriyalbinyahya@gmail.com", color: Color(0xFF3a75a1),),
-                    SmallText(text: "089661156025", color: Color(0xFF3a75a1),),
-                    SmallText(text: "Status Mitra", color: Color(0xFF3a75a1),)
+                    Text("Feriyal Bin Yahya", style: TextStyle(height: 1.5, color: Color(0xff7e8992)),),
+                    SizedBox(height: 3,),
+                    SmallText(text: "feriyalbinyahya@gmail.com", color: Color(0xFFa3b4c1),),
+                    SmallText(text: "089661156025", color: Color(0xFFa3b4c1),),
+                    RichText(
+                      text: TextSpan(
+                        text: "Status",
+                          style: GoogleFonts.openSans(textStyle: TextStyle(color: Color(0xFFa3b4c1), fontSize: 12)),
+                        children: [
+                          TextSpan(
+                            text: " Mitra",
+                              style: GoogleFonts.openSans(textStyle: TextStyle(color: Color(0xff577991), fontSize: 12, fontWeight: FontWeight.bold))
+                          )
+                        ]
+                      ),
+                    )
                   ],
                 ),
               )
@@ -108,8 +124,8 @@ class _MyDrawerState extends State<MyDrawer> {
                 margin: EdgeInsets.only(top: 8),
                 child: _tileContent(titleDrawerItems1[index], textDrawerItems1[index])
             ),
+            minLeadingWidth : 10,
             leading: Container(
-              margin: EdgeInsets.only(left: 12),
               child: Image(image: AssetImage("assets/images/"+iconDrawerItems1[index],)
                   , width: 25, height: 25),
             ),
@@ -123,8 +139,8 @@ class _MyDrawerState extends State<MyDrawer> {
               margin: EdgeInsets.only(top: 8),
               child: _tileContent("Produk", ["Produk jasa"])
           ),
+          minLeadingWidth : 10,
           leading: Container(
-            margin: EdgeInsets.only(left: 12),
             child: Image(image: AssetImage("assets/images/produk_jasa.png",)
                 , width: 25, height: 25),
           ),
@@ -166,6 +182,7 @@ class _MyDrawerState extends State<MyDrawer> {
                       )
                     ],
                   ),
+                  minLeadingWidth : 10,
                   leading: Icon(iconDrawerProduct[index], color: Color(0xff707070),),
                   onTap: () {
                     if(productMenu[index].length>0){
@@ -193,11 +210,11 @@ class _MyDrawerState extends State<MyDrawer> {
         SizedBox(height: 10,),
         Container(
           decoration: BoxDecoration(
-              color: Color(0xFFE8E8E8)
+              color: Color(0xFFF6F6F6)
           ),
           child: Padding(
             padding: EdgeInsets.only(left: 30, top: 8, bottom: 8),
-            child: Text("Settings", style: TextStyle(fontWeight: FontWeight.w400,),
+            child: Text("Settings", style: TextStyle(fontWeight: FontWeight.w400, color: Color(0xff626262)),
             ),
           ),
         ),
@@ -208,8 +225,8 @@ class _MyDrawerState extends State<MyDrawer> {
                   margin: EdgeInsets.only(top: 8),
                   child: _tileContent(titleDrawerItemsSettings[index], textDrawerItemsSettings[index])
               ),
+              minLeadingWidth : 10,
               leading: Container(
-                margin: EdgeInsets.only(left: 12),
                 child: Image(image: AssetImage("assets/images/"+iconDrawerItemsSettings[index])
                     , width: 25, height: 25),
               ),
@@ -217,6 +234,44 @@ class _MyDrawerState extends State<MyDrawer> {
 
               },
             ),
+        ),
+        Container(
+          child: Get.find<AuthController>().userLoggedIn()?Row(
+            children: [
+              Expanded(
+                flex: 5,
+                child: ListTile(
+                  leading: Icon(Icons.power_settings_new, color: Color(0xff668ca8),),
+                  title: Container(
+                    child: BigText(text: "LOGOUT", color: Color(0xff668ca8), size: 13, weight: FontWeight.bold,),
+                  ),
+                  minLeadingWidth : 10,
+                  onTap: (){
+                    Get.find<AuthController>().clearSharedData();
+                    Navigator.pop(context);
+                    Get.offNamed(RouteHelper.initial);
+                  },
+                ),
+              ),
+              Flexible(
+                  child: GestureDetector(
+                      onTap: (){},
+                      child: Container(
+                        padding: EdgeInsets.all(3),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(
+                            color: Color(0xff668ca8),
+                            style: BorderStyle.solid,
+                            width: 1.0,
+                          ),
+                        ),
+                        child: Icon(Icons.question_mark, size: 16, color: Color(0xff668ca8),),
+                      ),
+                  )
+              )
+            ],
+          ):Container()
         )
       ],
     );
@@ -225,17 +280,17 @@ class _MyDrawerState extends State<MyDrawer> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        BigText(text: title,size: 14, color: AppColors.titleColorDark,),
+        BigText(text: title,size: 15, color: Color(0xff404040),),
         SizedBox(height: 3,),
         Wrap(
             spacing: 5,
             runSpacing: 5,
             children: <Widget>[...List.generate(listTopic.length, (index) =>
-            index==0?SmallText(text: listTopic[index], color: AppColors.textColor2, weight: FontWeight.w400, size: 11,):
+            index==0?SmallText(text: listTopic[index], color: Color(0xff8f8f8f), weight: FontWeight.w400, size: 11,):
             Wrap(
               children: [
                 DotCircle(color: Colors.grey, width: 3, height: 3,mtop: 5, mleft: 3, mright: 8,),
-                SmallText(text: listTopic[index], color: AppColors.textColor2, weight: FontWeight.w400, size: 11,),
+                SmallText(text: listTopic[index], color: Color(0xff8f8f8f), weight: FontWeight.w400, size: 11,),
               ],
             )
             )

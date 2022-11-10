@@ -4,7 +4,8 @@ import 'package:mmbc_tour_and_travel/widgets/small_text.dart';
 class IconTextBottom extends StatelessWidget {
   final Widget icon;
   final String text;
-  const IconTextBottom({Key? key, required this.icon, required this.text}) : super(key: key);
+  final Color color;
+  const IconTextBottom({Key? key, required this.icon, required this.text, this.color= const Color(0xff445870)}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class IconTextBottom extends StatelessWidget {
         children: [
           icon,
           SizedBox(height: 5,),
-          SmallText(text: text, size:9, height: 1,)
+          SmallText(text: text, size:9, height: 1, color: color,)
         ],
       ),
     );

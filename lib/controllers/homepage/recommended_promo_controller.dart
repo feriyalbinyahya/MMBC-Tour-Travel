@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:mmbc_tour_and_travel/data/repository/homepage/recommended_promo_repo.dart';
 
@@ -18,9 +20,8 @@ class RecommendedPromoController extends GetxController {
     Response response = await recommendedPromoRepo.getRecommendedPromoList();
 
     if(response.statusCode == 200){
-      print("masukk");
       _recommendedPromoList = [];
-      List<dynamic> it = response.body;
+      List<dynamic> it = jsonDecode(response.body);
 
       for(var item in it){
         Promo promo = Promo.fromJson(item);

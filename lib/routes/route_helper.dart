@@ -8,11 +8,11 @@ class RouteHelper {
   static const String login = "/login";
 
   static List<GetPage> routes = [
-    GetPage(name: "/", page: ()=> MainPage()),
+    GetPage(name: initial, page: ()=> MainPage()),
     GetPage(name: login, page: () {
       return LoginPage();
     },
-      transition: Transition.fadeIn
+      transition: Transition.noTransition
     ),
   ];
 }

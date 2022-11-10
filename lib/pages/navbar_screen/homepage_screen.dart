@@ -46,57 +46,55 @@ class HomePageScreen extends StatelessWidget {
 
     return SingleChildScrollView(
       child: Container(
-        child: Column(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                color: Color(0xffeeeeee),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0xffd2d2d2),
-                    blurRadius: 1,
-                    spreadRadius: 0.05,
-                    // offset to act as bottom border color
-                    offset: Offset(0.5, 0.8),
-                  ),
-                ],
-              ),
-              padding: EdgeInsets.only(top: 10, right: 20, left: 20, bottom: 10),
-              child: GestureDetector(
-                onTap: (){
-                  Get.toNamed(RouteHelper.login);
-                },
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          SmallText(text: "Masuk atau Daftar", size: 14, height: 1.5, color: Color(0xFF5b5b5b),),
-                          SmallText(text: "Untung lebih banyak sebagai member!", size: 10 , height: 1.5, color: Color(0xFF5b5b5b),),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 15,),
-                    const CircleAvatar(
-                      backgroundColor: Color(0xff626262),
-                      radius: 15,
-                      child: Icon(
-                        Icons.person,
-                        color: Color(0xffF9F9F9),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(top:0, right: 20, left: 20, bottom: 20),
+              padding: EdgeInsets.only(top:0, bottom: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
+                    decoration: const BoxDecoration(
+                      color: Color(0xffeeeeee),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0xffd2d2d2),
+                          blurRadius: 1,
+                          spreadRadius: 0.05,
+                          // offset to act as bottom border color
+                          offset: Offset(0.5, 0.8),
+                        ),
+                      ],
+                    ),
+                    padding: EdgeInsets.only(top: 10, right: 20, left: 20, bottom: 10),
+                    child: GestureDetector(
+                      onTap: (){
+                        Get.toNamed(RouteHelper.login);
+                      },
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                SmallText(text: "Masuk atau Daftar", size: 14, height: 1.5, color: Color(0xFF5b5b5b),),
+                                SmallText(text: "Untung lebih banyak sebagai member!", size: 10 , height: 1.5, color: Color(0xFF5b5b5b),),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 15,),
+                          const CircleAvatar(
+                            backgroundColor: Color(0xff626262),
+                            radius: 15,
+                            child: Icon(
+                              Icons.person,
+                              color: Color(0xffF9F9F9),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
                     margin: EdgeInsets.only(top: 15),
+                    padding: EdgeInsets.only(left: 20, right: 20),
                     child: GridView.count(
                       shrinkWrap: true,
                       crossAxisSpacing: 5,
@@ -110,22 +108,35 @@ class HomePageScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 30,),
-                  BigText(text: "Hotel keren untuk bobok cantik",),
-                  SizedBox(height: 10,),
-                  SmallText(text: "Tidur makin pules dan mimpi indah"),
+                  Container(
+                    padding: EdgeInsets.only(left: 20, right: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BigText(text: "Hotel keren untuk bobok cantik", size: 16, weight: FontWeight.w600,),
+                        SizedBox(height: 10,),
+                        SmallText(text: "Tidur makin pules dan mimpi indah"),
+                      ],
+                    ),
+                  ),
                   HotelSectionView(),
                   SizedBox(height: 10,),
-                  BigText(text: "Kamu pasti menyukai ini",),
-                  SizedBox(height: 10,),
-                  SmallText(text: "Banjir cashback dan info menarik!"),
+                  Container(
+                    padding: EdgeInsets.only(left: 20, right: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BigText(text: "Kamu pasti menyukai ini", size: 16 ,weight: FontWeight.w600,),
+                        SizedBox(height: 10,),
+                        SmallText(text: "Banjir cashback dan info menarik!"),
+                      ],
+                    ),
+                  ),
                   SizedBox(height: 20,),
                   PromoSectionView(),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
     );
   }
 }

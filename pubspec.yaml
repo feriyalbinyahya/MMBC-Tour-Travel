@@ -44,6 +44,8 @@ dependencies:
   flutter_native_splash: ^2.2.12
   flutter_launcher_icons: ^0.10.0
   persistent_bottom_nav_bar: any
+  shared_preferences: ^2.0.15
+  flutter_spinkit: ^5.1.0
 
 dev_dependencies:
   flutter_lints: ^2.0.1
@@ -65,7 +67,7 @@ flutter_icons:
 
 flutter_native_splash:
   color: "#0769B0"
-  image: "assets/images/logommbc_splash.png"
+  image: "assets/images/logo_splash_screen.png"
   android_12:
     image: "assets/images/logommbc_splash12.png"
     color: "#0769B0"

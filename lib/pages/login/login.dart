@@ -1,13 +1,18 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mmbc_tour_and_travel/controllers/auth/auth_controller.dart';
+import 'package:mmbc_tour_and_travel/routes/route_helper.dart';
 import 'package:mmbc_tour_and_travel/widgets/big_text.dart';
 import 'package:mmbc_tour_and_travel/widgets/product/top_menu_icon.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../../base/show_custom_snackbar.dart';
 import '../../utils/colors.dart';
 import '../../widgets/app_bar.dart';
 import '../../widgets/drawer.dart';
 import '../../widgets/small_text.dart';
+import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -17,160 +22,194 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool isShowPassword = false;
+  var usernameController = TextEditingController();
+  var passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    bool? check1 = false;
-    var usernameController = TextEditingController();
-    var passwordController = TextEditingController();
+    final spinkit = SpinKitCircle(
+      color: AppColors.mainColor,
+      size: 50.0,
+    );
+    void _login(AuthController authController){
+      String username = usernameController.text.trim();
+      String password = passwordController.text.trim();
+
+      if(username.isEmpty){
+        showCustomSnackBar("Type in your email address", title: "email");
+      }else if(!GetUtils.isEmail(username)){
+        showCustomSnackBar("Type in a valid username", title: "Valid username");
+      }else if(password.isEmpty) {
+        showCustomSnackBar("Type in your password", title: "password");
+      }else if(password.length<6){
+        showCustomSnackBar("Password can not be less than six characters", title: "Password length");
+      }else{
+        authController.login(username, password).then((status){
+          if(status.isSuccess){
+            print("Success login");
+            Get.toNamed(RouteHelper.initial);
+          }else{
+            showCustomSnackBar(status.message);
+          }
+        });
+      }
+    }
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(55),
         child: MyAppBar(titlePage: "Login"),
       ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Container(
-          padding: EdgeInsets.only(top: 15, right: 20, left: 20, bottom: 20),
-          child: Column(
-            children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: BigText(text: "Login"),
-              ),
-              SizedBox(height: 20,),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                    borderRadius: BorderRadius.circular(10.0),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 6,
-                      spreadRadius: 5,
-                      offset: Offset(1, 6),
-                      color: Colors.grey.withOpacity(0.2)
-                    )
-                  ]
+      body: GetBuilder<AuthController>(builder: (authController){
+        return !authController.isLoadingLogin? SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Container(
+            padding: EdgeInsets.only(top: 15, right: 20, left: 20, bottom: 20),
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: BigText(text: "Login"),
                 ),
-                padding: EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 20),
-                child: Column(
-                  children: [
-                    TextField(
-                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                          fontSize: 14
-                      )),
-                      controller: usernameController,
-                      decoration: InputDecoration(
-                        labelText: "Username",
-                        prefixIcon: Icon(Icons.person, color: AppColors.mainColor,),
+                SizedBox(height: 20,),
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10.0),
+                      boxShadow: [
+                        BoxShadow(
+                            blurRadius: 6,
+                            spreadRadius: 5,
+                            offset: Offset(1, 6),
+                            color: Colors.grey.withOpacity(0.2)
+                        )
+                      ]
+                  ),
+                  padding: EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 20),
+                  child: Column(
+                    children: [
+                      TextField(
+                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                            fontSize: 14
+                        )),
+                        controller: usernameController,
+                        decoration: InputDecoration(
+                          labelText: "Username",
+                          prefixIcon: Icon(Icons.person, color: AppColors.mainColor,),
 
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 30,),
-                    TextField(
-                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                          fontSize: 14
-                      )),
-                      controller: passwordController,
-                      decoration: InputDecoration(
-                          labelText: "password",
-                          prefixIcon: Icon(Icons.key_rounded, color: AppColors.mainColor,)
+                      SizedBox(height: 30,),
+                      TextField(
+                        obscureText: !isShowPassword,
+                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                            fontSize: 14
+                        )),
+                        controller: passwordController,
+                        decoration: InputDecoration(
+                            labelText: "password",
+                            prefixIcon: Icon(Icons.key_rounded, color: AppColors.mainColor,),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 20,),
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          SizedBox(
-                            width: 30,
-                            height: 24,
-                            child: Transform.scale(
-                              scale: 0.8,
-                              child: Checkbox(
-                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                value: check1,
-                                checkColor: Colors.white,
-                                activeColor: AppColors.mainColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(5.0),
+                      SizedBox(height: 20,),
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            SizedBox(
+                              width: 30,
+                              height: 24,
+                              child: Transform.scale(
+                                scale: 0.8,
+                                child: Checkbox(
+                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                  value: isShowPassword,
+                                  checkColor: Colors.white,
+                                  activeColor: AppColors.mainColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(5.0),
+                                    ),
                                   ),
+                                  onChanged: (isChecked) {
+                                    setState(() {
+                                      isShowPassword = !isShowPassword;
+                                    });
+                                  },
                                 ),
-                                onChanged: (isChecked) {},
                               ),
                             ),
-                          ),
-                          SmallText(text: "Show password")
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 20,),
-                    GestureDetector(
-                      onTap: (){
-                        print("login");
-                      },
-                      child: Container(
-                        width: 200,
-                        height: 30,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            color: AppColors.mainColor
-                        ),
-                        child: Center(
-                          child: BigText(text: "Log In", color: Colors.white, size: 13, weight: FontWeight.bold,),
+                            SmallText(text: "Show password")
+                          ],
                         ),
                       ),
-                    ),
-                    SizedBox(height: 30,),
-                    GestureDetector(
-                      onTap: (){},
-                      child: SmallText(text: "Lupa Password?", color: AppColors.mainColor, weight: FontWeight.bold,),
-                    ),
-                    SizedBox(height: 20,),
-                    Stack(
-                      children: [
-                        Padding(padding: EdgeInsets.only(top: 5),
-                        child: const Divider(
-                          color: Colors.grey,
-                          height: 1,
-                          thickness: 0.8,
-                          indent: 20,
-                          endIndent: 20,
-                        )),
-                        Container(
-                          margin: EdgeInsets.only(left: 132),
-                          width: 50,
-                          height: 15,
+                      SizedBox(height: 20,),
+                      GestureDetector(
+                        onTap: (){
+                          _login(authController);
+                        },
+                        child: Container(
+                          width: 200,
+                          height: 30,
                           decoration: BoxDecoration(
-                              color: Colors.white
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: AppColors.mainColor
                           ),
                           child: Center(
-                            child: SmallText(text: "atau", color: Colors.grey, size: 11),
+                            child: BigText(text: "Log In", color: Colors.white, size: 13, weight: FontWeight.bold,),
                           ),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 20,),
-                    RichText(
-                      text: TextSpan(
-                        text: "Belum punya akun?",
-                        style: GoogleFonts.openSans(textStyle: TextStyle(color: Colors.grey, fontSize: 12)),
+                      ),
+                      SizedBox(height: 30,),
+                      GestureDetector(
+                        onTap: (){},
+                        child: SmallText(text: "Lupa Password?", color: AppColors.mainColor, weight: FontWeight.bold,),
+                      ),
+                      SizedBox(height: 20,),
+                      Stack(
                         children: [
-                          TextSpan(
-                              text: " Daftar",
-                              style: GoogleFonts.openSans(textStyle: TextStyle(color: AppColors.mainColor, fontSize: 12, fontWeight: FontWeight.bold))
+                          Padding(padding: EdgeInsets.only(top: 5),
+                              child: const Divider(
+                                color: Colors.grey,
+                                height: 1,
+                                thickness: 0.8,
+                                indent: 20,
+                                endIndent: 20,
+                              )),
+                          Container(
+                            margin: EdgeInsets.only(left: 132),
+                            width: 50,
+                            height: 15,
+                            decoration: BoxDecoration(
+                                color: Colors.white
+                            ),
+                            child: Center(
+                              child: SmallText(text: "atau", color: Colors.grey, size: 11),
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                    SizedBox(height: 20,)
-                  ],
+                      SizedBox(height: 20,),
+                      RichText(
+                        text: TextSpan(
+                          text: "Belum punya akun?",
+                          style: GoogleFonts.openSans(textStyle: TextStyle(color: Colors.grey, fontSize: 12)),
+                          children: [
+                            TextSpan(
+                                text: " Daftar",
+                                style: GoogleFonts.openSans(textStyle: TextStyle(color: AppColors.mainColor, fontSize: 12, fontWeight: FontWeight.bold))
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 20,)
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ),
+        ): spinkit;
+      }),
     );
   }
 }
