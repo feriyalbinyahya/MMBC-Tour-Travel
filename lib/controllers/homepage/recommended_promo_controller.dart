@@ -21,7 +21,7 @@ class RecommendedPromoController extends GetxController {
 
     if(response.statusCode == 200){
       _recommendedPromoList = [];
-      List<dynamic> it = jsonDecode(response.body);
+      List<dynamic> it = response.body;
 
       for(var item in it){
         Promo promo = Promo.fromJson(item);

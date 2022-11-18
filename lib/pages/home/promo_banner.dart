@@ -46,6 +46,7 @@ class _PromoSectionViewState extends State<PromoSectionView> {
             },
           ),
           SizedBox(height: 10,),
+          /*** For Circle indicator
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: recommendedPromo.recommendedPromoList.asMap().entries.map((entry) {
@@ -64,7 +65,7 @@ class _PromoSectionViewState extends State<PromoSectionView> {
                 ),
               );
             }).toList(),
-          ),
+          ), ***/
         ]),
       );
     });

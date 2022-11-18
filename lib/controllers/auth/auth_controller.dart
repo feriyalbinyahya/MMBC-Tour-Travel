@@ -21,7 +21,8 @@ class AuthController extends GetxController implements GetxService {
     Response response = await authRepo.login(email, password);
     late ResponseModel responseModel;
     if(response.statusCode==200){
-      Map<String, dynamic> data = jsonDecode(response.body);
+      print(response.body);
+      Map<String, dynamic> data = response.body;
       if(data["success"]){
         authRepo.saveUserToken(data["user"]["password"]);
         responseModel = ResponseModel(true, data["user"]["password"]);

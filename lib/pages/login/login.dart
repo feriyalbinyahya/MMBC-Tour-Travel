@@ -63,28 +63,22 @@ class _LoginPageState extends State<LoginPage> {
         return !authController.isLoadingLogin? SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Container(
-            padding: EdgeInsets.only(top: 15, right: 20, left: 20, bottom: 20),
+            padding: EdgeInsets.only(top: 15, bottom: 20),
             child: Column(
               children: [
                 Align(
                   alignment: Alignment.topLeft,
-                  child: BigText(text: "Login"),
+                  child: Padding(
+                    child: BigText(text: "Login"),
+                    padding: EdgeInsets.only(left: 20, top: 20),
+                  ),
                 ),
                 SizedBox(height: 20,),
                 Container(
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(10.0),
-                      boxShadow: [
-                        BoxShadow(
-                            blurRadius: 6,
-                            spreadRadius: 5,
-                            offset: Offset(1, 6),
-                            color: Colors.grey.withOpacity(0.2)
-                        )
-                      ]
                   ),
-                  padding: EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 20),
+                  padding: EdgeInsets.only(top: 10, left: 35, right: 35, bottom: 20),
                   child: Column(
                     children: [
                       TextField(
@@ -148,8 +142,8 @@ class _LoginPageState extends State<LoginPage> {
                           _login(authController);
                         },
                         child: Container(
-                          width: 200,
-                          height: 30,
+                          width: 350,
+                          height: 35,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5.0),
                               color: AppColors.mainColor
@@ -176,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
                                 endIndent: 20,
                               )),
                           Container(
-                            margin: EdgeInsets.only(left: 132),
+                            margin: EdgeInsets.only(left: 136),
                             width: 50,
                             height: 15,
                             decoration: BoxDecoration(

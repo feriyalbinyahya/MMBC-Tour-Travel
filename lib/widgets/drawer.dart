@@ -4,7 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mmbc_tour_and_travel/controllers/auth/auth_controller.dart';
 import 'package:mmbc_tour_and_travel/routes/route_helper.dart';
 import 'package:mmbc_tour_and_travel/widgets/small_text.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
+import '../pages/home/main_home_page.dart';
 import '../utils/colors.dart';
 import 'big_text.dart';
 import 'dot_circle.dart';
@@ -76,205 +78,247 @@ class _MyDrawerState extends State<MyDrawer> {
     Icons.fire_truck, Icons.tv, Icons.wallet_travel, Icons.shopping_bag, Icons.shield, Icons.map_outlined,
     Icons.settings_input_antenna];
 
-    final drawerHeader = SizedBox(
-      height: 130,
-      child: DrawerHeader(
-        padding: EdgeInsets.only(top: 30, left: 20, right: 20, bottom: 20),
-        decoration: BoxDecoration(color: Color(0xFFf4f4f4)),
-        child: Container(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CircleAvatar(
-                child: FlutterLogo(size: 42.0,),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 20),
-                child:  Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Feriyal Bin Yahya", style: TextStyle(height: 1.5, color: Color(0xff7e8992)),),
-                    SizedBox(height: 3,),
-                    SmallText(text: "feriyalbinyahya@gmail.com", color: Color(0xFFa3b4c1),),
-                    SmallText(text: "089661156025", color: Color(0xFFa3b4c1),),
-                    RichText(
-                      text: TextSpan(
-                        text: "Status",
-                          style: GoogleFonts.openSans(textStyle: TextStyle(color: Color(0xFFa3b4c1), fontSize: 12)),
-                        children: [
-                          TextSpan(
-                            text: " Mitra",
-                              style: GoogleFonts.openSans(textStyle: TextStyle(color: Color(0xff577991), fontSize: 12, fontWeight: FontWeight.bold))
-                          )
-                        ]
-                      ),
-                    )
-                  ],
+    final drawerHeader = GetBuilder<AuthController>(builder: (authController) {
+      return SizedBox(
+        height: authController.userLoggedIn()?130:110,
+        child: DrawerHeader(
+          padding: EdgeInsets.only(top: 24, left: 20, right: 20, bottom: 20),
+          decoration: BoxDecoration(color: Color(0xFFf4f4f4)),
+          child: Container(
+            child: authController.userLoggedIn()?Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CircleAvatar(
+                  child: FlutterLogo(size: 42.0,),
                 ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-    return ListView(
-      children: <Widget>[drawerHeader,...List.generate(titleDrawerItems1.length, (index) =>
-          ListTile(
-            title: Container(
-                margin: EdgeInsets.only(top: 8),
-                child: _tileContent(titleDrawerItems1[index], textDrawerItems1[index])
-            ),
-            minLeadingWidth : 10,
-            leading: Container(
-              child: Image(image: AssetImage("assets/images/"+iconDrawerItems1[index],)
-                  , width: 25, height: 25),
-            ),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),),
-        ListTile(
-          trailing: isPressedProductDrawer?Icon(Icons.arrow_left_rounded):Icon(Icons.arrow_right_rounded),
-          title: Container(
-              margin: EdgeInsets.only(top: 8),
-              child: _tileContent("Produk", ["Produk jasa"])
-          ),
-          minLeadingWidth : 10,
-          leading: Container(
-            child: Image(image: AssetImage("assets/images/produk_jasa.png",)
-                , width: 25, height: 25),
-          ),
-          onTap: () {
-            if(!isPressedProductDrawer){
-              setState(() {
-                isPressedProductDrawer = true;
-              });
-            }else{
-              setState(() {
-                isPressedProductDrawer = false;
-              });
-            }
-          },
-        ),
-        Container(
-          padding: EdgeInsets.only(left: 20),
-          child: Column(
-            children: isPressedProductDrawer?
-            [...List.generate(titleDrawerProduct.length, (index) =>
-                ListTile(
-                  trailing: productMenu[index].length>0?(isPressedProduct[index]?Icon(Icons.arrow_left_rounded):Icon(Icons.arrow_right_rounded)):null,
-                  title: Column(
+                Padding(
+                  padding: EdgeInsets.only(left: 20),
+                  child:  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                          margin: EdgeInsets.only(top: 10),
-                          child: _tileContentProduct(titleDrawerProduct[index])
-                      ),
-                      Column(
-                        children: isPressedProduct[index]?
-                          [...List.generate(productMenu[index].length, (idx) =>
-                          ListTile(
-                              title: Container(
-                                child: _tileContentProduct((productMenu[index])[idx]),
-                              ),
-                              onTap: (){}
-                          )
-                      )]:[],
+                      Text("Feriyal Bin Yahya", style: TextStyle(height: 1.5, color: Color(0xff7e8992)),),
+                      SizedBox(height: 3,),
+                      SmallText(text: "feriyalbinyahya@gmail.com", color: Color(0xFFa3b4c1),),
+                      SmallText(text: "089661156025", color: Color(0xFFa3b4c1),),
+                      RichText(
+                        text: TextSpan(
+                            text: "Status",
+                            style: GoogleFonts.openSans(textStyle: TextStyle(color: Color(0xFFa3b4c1), fontSize: 12)),
+                            children: [
+                              TextSpan(
+                                  text: " Mitra",
+                                  style: GoogleFonts.openSans(textStyle: TextStyle(color: Color(0xff577991), fontSize: 12, fontWeight: FontWeight.bold))
+                              )
+                            ]
+                        ),
                       )
                     ],
                   ),
-                  minLeadingWidth : 10,
-                  leading: Icon(iconDrawerProduct[index], color: Color(0xff707070),),
-                  onTap: () {
-                    if(productMenu[index].length>0){
-                      if(!isPressedProduct[index]){
-                        setState(() {
-                          //agar cuma satu button tile yang dropdown list nya
-                          for(int i=0; i<isPressedProduct.length; i++){
-                            isPressedProduct[i] = false;
-                          }
-                          isPressedProduct[index] = true;
-                        });
-                      }else{
-                        setState(() {
-                          isPressedProduct[index] = false;
-                        });
-                      }
-                    }
+                )
+              ],
+            ):Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GestureDetector(
+                  onTap: (){
+                    Get.toNamed(RouteHelper.login);
                   },
+                  child: CircleAvatar(
+                    backgroundColor: Color(0xff0086be),
+                    radius: 25,
+                    child: Icon(
+                      Icons.person,
+                      color: Color(0xffF4f4f4),
+                      size: 35,
+                    ),
+                  ),
                 ),
+                Padding(
+                  padding: EdgeInsets.only(left: 20),
+                  child:  GestureDetector(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Hai,", style: TextStyle(height: 1.5, color: Color(0xff7e8992)),),
+                        SizedBox(height: 3,),
+                        SmallText(text: "Kamu belum Login!", color: Color(0xff7e8992),),
+                        SmallText(text: "klik disini untuk login", color: Color(0xFF68afb7),),
+                      ],
+                    ),
+                    onTap: (){
+                      Get.toNamed(RouteHelper.login);
+                    },
+                  ),
+                )
+              ],
             ),
-            ]
-                :[],
           ),
         ),
-        SizedBox(height: 10,),
-        Container(
-          decoration: BoxDecoration(
-              color: Color(0xFFF6F6F6)
-          ),
-          child: Padding(
-            padding: EdgeInsets.only(left: 30, top: 8, bottom: 8),
-            child: Text("Settings", style: TextStyle(fontWeight: FontWeight.w400, color: Color(0xff626262)),
-            ),
-          ),
-        ),
-        SizedBox(height: 8,),
-        ...List.generate(titleDrawerItemsSettings.length, (index) =>
+      );
+    },);
+    return GetBuilder<AuthController>(builder: (authController) {
+      return ListView(
+        children: <Widget>[drawerHeader,...List.generate(titleDrawerItems1.length, (index) =>
             ListTile(
               title: Container(
                   margin: EdgeInsets.only(top: 8),
-                  child: _tileContent(titleDrawerItemsSettings[index], textDrawerItemsSettings[index])
+                  child: _tileContent(titleDrawerItems1[index], textDrawerItems1[index])
               ),
               minLeadingWidth : 10,
               leading: Container(
-                child: Image(image: AssetImage("assets/images/"+iconDrawerItemsSettings[index])
+                child: Image(image: AssetImage("assets/images/"+iconDrawerItems1[index],)
                     , width: 25, height: 25),
               ),
               onTap: () {
-
+                Navigator.pop(context);
               },
+            ),),
+          ListTile(
+            trailing: isPressedProductDrawer?Icon(Icons.arrow_left_rounded):Icon(Icons.arrow_right_rounded),
+            title: Container(
+                margin: EdgeInsets.only(top: 8),
+                child: _tileContent("Produk", ["Produk jasa"])
             ),
-        ),
-        Container(
-          child: Get.find<AuthController>().userLoggedIn()?Row(
-            children: [
-              Expanded(
-                flex: 5,
-                child: ListTile(
-                  leading: Icon(Icons.power_settings_new, color: Color(0xff668ca8),),
-                  title: Container(
-                    child: BigText(text: "LOGOUT", color: Color(0xff668ca8), size: 13, weight: FontWeight.bold,),
-                  ),
-                  minLeadingWidth : 10,
-                  onTap: (){
-                    Get.find<AuthController>().clearSharedData();
-                    Navigator.pop(context);
-                    Get.offNamed(RouteHelper.initial);
-                  },
-                ),
-              ),
-              Flexible(
-                  child: GestureDetector(
-                      onTap: (){},
-                      child: Container(
-                        padding: EdgeInsets.all(3),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(
-                            color: Color(0xff668ca8),
-                            style: BorderStyle.solid,
-                            width: 1.0,
-                          ),
+            minLeadingWidth : 10,
+            leading: Container(
+              child: Image(image: AssetImage("assets/images/produk_jasa.png",)
+                  , width: 25, height: 25),
+            ),
+            onTap: () {
+              if(!isPressedProductDrawer){
+                setState(() {
+                  isPressedProductDrawer = true;
+                });
+              }else{
+                setState(() {
+                  isPressedProductDrawer = false;
+                });
+              }
+            },
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 20),
+            child: Column(
+              children: isPressedProductDrawer?
+              [...List.generate(titleDrawerProduct.length, (index) =>
+                  ListTile(
+                    trailing: productMenu[index].length>0?(isPressedProduct[index]?Icon(Icons.arrow_left_rounded):Icon(Icons.arrow_right_rounded)):null,
+                    title: Column(
+                      children: [
+                        Container(
+                            margin: EdgeInsets.only(top: 10),
+                            child: _tileContentProduct(titleDrawerProduct[index])
                         ),
-                        child: Icon(Icons.question_mark, size: 16, color: Color(0xff668ca8),),
+                        Column(
+                          children: isPressedProduct[index]?
+                          [...List.generate(productMenu[index].length, (idx) =>
+                              ListTile(
+                                  title: Container(
+                                    child: _tileContentProduct((productMenu[index])[idx]),
+                                  ),
+                                  onTap: (){}
+                              )
+                          )]:[],
+                        )
+                      ],
+                    ),
+                    minLeadingWidth : 10,
+                    leading: Icon(iconDrawerProduct[index], color: Color(0xff707070),),
+                    onTap: () {
+                      if(productMenu[index].length>0){
+                        if(!isPressedProduct[index]){
+                          setState(() {
+                            //agar cuma satu button tile yang dropdown list nya
+                            for(int i=0; i<isPressedProduct.length; i++){
+                              isPressedProduct[i] = false;
+                            }
+                            isPressedProduct[index] = true;
+                          });
+                        }else{
+                          setState(() {
+                            isPressedProduct[index] = false;
+                          });
+                        }
+                      }
+                    },
+                  ),
+              ),
+              ]
+                  :[],
+            ),
+          ),
+          SizedBox(height: 10,),
+          Container(
+            decoration: BoxDecoration(
+                color: Color(0xFFF6F6F6)
+            ),
+            child: Padding(
+              padding: EdgeInsets.only(left: 30, top: 8, bottom: 8),
+              child: Text("Settings", style: TextStyle(fontWeight: FontWeight.w400, color: Color(0xff626262)),
+              ),
+            ),
+          ),
+          SizedBox(height: 8,),
+          ...List.generate(titleDrawerItemsSettings.length, (index) =>
+              ListTile(
+                title: Container(
+                    margin: EdgeInsets.only(top: 8),
+                    child: _tileContent(titleDrawerItemsSettings[index], textDrawerItemsSettings[index])
+                ),
+                minLeadingWidth : 10,
+                leading: Container(
+                  child: Image(image: AssetImage("assets/images/"+iconDrawerItemsSettings[index])
+                      , width: 25, height: 25),
+                ),
+                onTap: () {
+
+                },
+              ),
+          ),
+          Container(
+              child: authController.userLoggedIn()?Row(
+                children: [
+                  Expanded(
+                    flex: 5,
+                    child: ListTile(
+                      leading: Icon(Icons.power_settings_new, color: Color(0xff668ca8),),
+                      title: Container(
+                        child: BigText(text: "LOGOUT", color: Color(0xff668ca8), size: 13, weight: FontWeight.bold,),
                       ),
+                      minLeadingWidth : 10,
+                      onTap: (){
+                        Get.find<AuthController>().clearSharedData();
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => MainPage()), // this mymainpage is your page to refresh
+                              (Route<dynamic> route) => false,
+                        );
+                      },
+                    ),
+                  ),
+                  Flexible(
+                      child: GestureDetector(
+                        onTap: (){},
+                        child: Container(
+                          padding: EdgeInsets.all(3),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                              color: Color(0xff668ca8),
+                              style: BorderStyle.solid,
+                              width: 1.0,
+                            ),
+                          ),
+                          child: Icon(Icons.question_mark, size: 16, color: Color(0xff668ca8),),
+                        ),
+                      )
                   )
-              )
-            ],
-          ):Container()
-        )
-      ],
-    );
+                ],
+              ):Container()
+          )
+        ],
+      );
+    },);
   }
   Widget _tileContent(String title, List<String> listTopic) {
     return Column(
@@ -322,5 +366,11 @@ class _MyDrawerState extends State<MyDrawer> {
         ),
       ],
     );
+  }
+
+  void _showLoading() async {
+    SmartDialog.showLoading();
+    await Future.delayed(Duration(seconds: 2));
+    SmartDialog.dismiss();
   }
 }

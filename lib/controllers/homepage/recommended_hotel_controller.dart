@@ -21,7 +21,7 @@ class RecommendedHotelController extends GetxController {
 
     if(response.statusCode == 200){
       _recommendedHotelList = [];
-      List<dynamic> it = jsonDecode(response.body);
+      List<dynamic> it = response.body;
 
       for(var item in it){
         RecommendedHotel hotel = RecommendedHotel.fromJson(item);
