@@ -19,6 +19,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../routes/route_helper.dart';
+import '../../services/local_notification_service.dart';
 import '../../widgets/big_text.dart';
 import '../../widgets/home_app_bar.dart';
 import '../../widgets/product/bus_travel_icon.dart';
@@ -45,10 +46,12 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  LocalNotificationService service = LocalNotificationService();
   @override
   void initState() {
     super.initState();
     initialization();
+    service.initialize();
   }
 
   void initialization() async {
@@ -65,7 +68,7 @@ class _MainPageState extends State<MainPage> {
         child: Container(
           child: Column(
             children: [
-              HomeAppBar(),
+              HomeAppBar(service: service),
             ],
           ),
         ),
