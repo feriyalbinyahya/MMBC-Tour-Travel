@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "904211573139",
+    "project_id": "mmbc-tour-travel",
+    "storage_bucket": "mmbc-tour-travel.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:904211573139:android:ae57bc4a6b4032aebf2066",
+        "android_client_info": {
+          "package_name": "com.example.mmbc_tour_and_travel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "904211573139-h5p6fblp5q5341opuetd3cni9ork4jhu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-BrhMX5OsYmC2RvHKduMZ-VSaa4zoWfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "904211573139-h5p6fblp5q5341opuetd3cni9ork4jhu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

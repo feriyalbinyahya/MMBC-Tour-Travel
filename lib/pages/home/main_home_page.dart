@@ -1,5 +1,7 @@
 import 'dart:core';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mmbc_tour_and_travel/pages/home/promo_banner.dart';
@@ -17,6 +19,7 @@ import 'package:mmbc_tour_and_travel/widgets/product/transfer_uang_icon.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:platform_device_id/platform_device_id.dart';
 
 import '../../routes/route_helper.dart';
 import '../../services/local_notification_service.dart';
@@ -47,10 +50,14 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   LocalNotificationService service = LocalNotificationService();
+  String? mtoken = " ";
   @override
   void initState() {
     super.initState();
     initialization();
+    requestPermission();
+
+    getToken();
     service.initialize();
   }
 
@@ -59,6 +66,48 @@ class _MainPageState extends State<MainPage> {
       FlutterNativeSplash.remove()
     });
   }
+
+  void requestPermission() async {
+    FirebaseMessaging messaging =  FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      carPlay: false,
+      badge: true,
+      criticalAlert: false,
+      provisional: false,
+      sound: true
+    );
+
+    if(settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print("User granted permission!");
+    }else if(settings.authorizationStatus == AuthorizationStatus.provisional){
+      print("User granted provisional permission");
+    }else{
+      print("User declined or has not accepted permission");
+    }
+  }
+
+  void getToken() async {
+    await FirebaseMessaging.instance.getToken().then((token) {
+      setState(() {
+        mtoken = token;
+        print("My token is $mtoken");
+      });
+      saveToken(token!);
+    });
+  }
+
+  void saveToken(String token) async {
+    String? uniqueID = await PlatformDeviceId.getDeviceId;
+    print(uniqueID);
+    await FirebaseFirestore.instance.collection("UserTokens").doc(uniqueID).set({
+      'token':token,
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
