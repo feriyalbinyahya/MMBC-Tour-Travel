@@ -44,8 +44,6 @@ class _TakePictureState extends State<TakePicture> {
     try {
       final XFile? pickedFile = await _picker.pickImage(
         source: source,
-        maxWidth: maxWidth,
-        maxHeight: maxHeight,
         imageQuality: quality,
       );
       setState(() {
@@ -143,7 +141,11 @@ class _TakePictureState extends State<TakePicture> {
                   textAlign: TextAlign.center,
                 );
               case ConnectionState.done:
-                return _handlePreview();
+                return SizedBox(
+                  width: 200,
+                  height: 400,
+                  child: _handlePreview(),
+                );
               default:
                 if (snapshot.hasError) {
                   return Text(
@@ -159,7 +161,11 @@ class _TakePictureState extends State<TakePicture> {
             }
           },
         )
-            : _handlePreview(),
+            : SizedBox(
+          width: 200,
+          height: 400,
+          child: _handlePreview(),
+        ),
       ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,

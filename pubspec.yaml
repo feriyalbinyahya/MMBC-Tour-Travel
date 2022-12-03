@@ -59,6 +59,9 @@ dependencies:
   platform_device_id: ^1.0.1
   image_picker: ^0.8.6
   video_player: ^2.4.8
+  intl: ^0.17.0
+  bluetooth_print: ^4.3.0
+  blue_thermal_printer: ^1.2.3
 
 dev_dependencies:
   flutter_lints: ^2.0.1
@@ -80,7 +83,7 @@ flutter_icons:
 
 flutter_native_splash:
   color: "#0769B0"
-  image: "assets/images/logo_splash_screen.png"
+  image: "assets/images/logommbc_splash12.png"
   android_12:
     image: "assets/images/logommbc_splash12.png"
     color: "#0769B0"
