@@ -3,28 +3,27 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 
+import '../../models/invoice/invoice_model.dart';
 import '../../routes/route_helper.dart';
 
 import '../../utils/colors.dart';
 
-class InvoiceList extends StatelessWidget {
-  final List<Map<String, dynamic>> data = [
-    {'title': 'Cadbury Dairy Milk', 'price': 15, 'qty': 2},
-    {'title': 'Parle-G Gluco Biscut', 'price': 5, 'qty': 5},
-    {'title': 'Fresh Onion - 1KG', 'price': 20, 'qty': 1},
-    {'title': 'Fresh Sweet Lime', 'price': 20, 'qty': 5},
-    {'title': 'Maggi', 'price': 10, 'qty': 5},
-  ];
+class InvoiceList extends StatefulWidget {
+  final InvoiceModel data;
+  InvoiceList(this.data);
+
+  @override
+  _InvoiceListState createState() => _InvoiceListState();
+}
+
+class _InvoiceListState extends State<InvoiceList> {
 
   final f = NumberFormat("\$###,###.00", "en_US");
 
   @override
   Widget build(BuildContext context) {
-    int _total = 0;
-    _total = data.map((e) => e['price'] * e['qty']).reduce(
-          (value, element) => value + element,
-    );
-
+    String totalBayar = widget.data.ppobTotalbayar!;
+    List<String> listData = widget.data.cetakStruk();
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(55),
@@ -38,22 +37,16 @@ class InvoiceList extends StatelessWidget {
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: data.length,
+              itemCount: listData.length,
               itemBuilder: (c, i) {
-                return ListTile(
-                  title: Text(
-                    data[i]['title'].toString(),
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  subtitle: Text(
-                    "${f.format(data[i]['price'])} x ${data[i]['qty']}",
-                  ),
-                  trailing: Text(
-                    f.format(
-                      data[i]['price'] * data[i]['qty'],
+                return SizedBox(
+                  height: 30,
+                  child: ListTile(
+                    title: Text(
+                      listData[i].toString(),
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 );
@@ -66,7 +59,7 @@ class InvoiceList extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  "Total: ${f.format(_total)}",
+                  "Total Bayar : Rp. "+totalBayar,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -77,7 +70,8 @@ class InvoiceList extends StatelessWidget {
                 Expanded(
                   child: TextButton.icon(
                     onPressed: () {
-                      Get.toNamed(RouteHelper.printInvoice, arguments: data);
+                      listData.add(totalBayar);
+                      Get.toNamed(RouteHelper.printInvoice, arguments: listData);
                     },
                     icon: Icon(Icons.print),
                     label: Text('Print'),

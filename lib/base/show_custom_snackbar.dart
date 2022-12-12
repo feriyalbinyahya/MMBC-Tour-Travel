@@ -11,7 +11,7 @@ void showCustomSnackBar(String message, {bool isError=true, String title="Error"
     )),
     colorText: Colors.white,
     snackPosition: SnackPosition.BOTTOM,
-    backgroundColor: Colors.redAccent,
+    backgroundColor: isError?Colors.redAccent:Colors.green,
     borderRadius: 0,
     margin: EdgeInsets.all(0),
     padding: EdgeInsets.only(bottom: 15, top: 15, right: 20, left: 20)

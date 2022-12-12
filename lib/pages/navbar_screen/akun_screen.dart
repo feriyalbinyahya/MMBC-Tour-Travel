@@ -32,7 +32,7 @@ class AkunScreen extends StatelessWidget {
               SizedBox(height: 20,),
               GestureDetector(
                 onTap: (){
-                  Get.toNamed(RouteHelper.invoiceList);
+                  Get.toNamed(RouteHelper.invoiceForm);
                 },
                 child: Container(
                   padding: EdgeInsets.only(top: 5),

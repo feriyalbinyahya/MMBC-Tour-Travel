@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 import '../../utils/colors.dart';
 
 class PrintPage extends StatefulWidget {
-  final List<Map<String, dynamic>> data;
+  final List<String> data;
   PrintPage(this.data);
 
   @override
@@ -75,7 +75,7 @@ class _PrintPageState extends State<PrintPage> {
       list.add(
         bluetooth_model.LineText(
           type: bluetooth_model.LineText.TYPE_TEXT,
-          content: "Grocery App",
+          content: "MMBC TOUR TRAVEL",
           weight: 2,
           width: 2,
           height: 2,
@@ -88,18 +88,8 @@ class _PrintPageState extends State<PrintPage> {
         list.add(
           bluetooth_model.LineText(
             type: bluetooth_model.LineText.TYPE_TEXT,
-            content: widget.data[i]['title'],
+            content: widget.data[i],
             weight: 0,
-            align: bluetooth_model.LineText.ALIGN_LEFT,
-            linefeed: 1,
-          ),
-        );
-
-        list.add(
-          bluetooth_model.LineText(
-            type: bluetooth_model.LineText.TYPE_TEXT,
-            content:
-            "${f.format(this.widget.data[i]['price'])} x ${this.widget.data[i]['qty']}",
             align: bluetooth_model.LineText.ALIGN_LEFT,
             linefeed: 1,
           ),
