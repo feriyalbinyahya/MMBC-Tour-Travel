@@ -81,9 +81,13 @@ class InvoiceController extends GetxController implements GetxService {
         return PLNToken();
       }
       else{
+        _isLoadingInvoice = false;
+        update();
         return PLNToken();
       }
     }else{
+      _isLoadingInvoice = false;
+      update();
       return PLNToken();
     }
   }
