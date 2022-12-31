@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mmbc_tour_and_travel/controllers/homepage/recommended_hotel_controller.dart';
+import 'package:mmbc_tour_and_travel/helper/biometric_helper.dart';
+import 'package:mmbc_tour_and_travel/pages/biometric_pin/first.dart';
+import 'package:mmbc_tour_and_travel/pages/biometric_pin/passcod.dart';
 import 'package:mmbc_tour_and_travel/pages/home/main_home_page.dart';
+import 'package:mmbc_tour_and_travel/pages/login/login.dart';
 import 'package:mmbc_tour_and_travel/routes/route_helper.dart';
 import 'package:mmbc_tour_and_travel/utils/colors.dart';
 
@@ -23,11 +27,17 @@ Future<void> main() async {
   await Firebase.initializeApp();
   await FirebaseMessaging.instance.getInitialMessage();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
 
   // This widget is the root of your application.
   @override
@@ -48,7 +58,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: MainPage(),
+      home: FirstPage(),
       initialRoute: RouteHelper.initial,
       getPages: RouteHelper.routes,
     );

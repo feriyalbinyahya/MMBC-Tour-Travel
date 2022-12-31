@@ -4,6 +4,7 @@ import 'package:bluetooth_print/bluetooth_print.dart';
 import 'package:bluetooth_print/bluetooth_print_model.dart' as bluemodel;
 import 'package:bluetooth_print/bluetooth_print_model.dart';
 import 'package:bluetooth_thermal_printer/bluetooth_thermal_printer.dart';
+import 'package:esc_pos_utils/esc_pos_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -25,6 +26,7 @@ class _PrintPageState extends State<PrintPage> {
   bool connected = false;
   List availableBluetoothDevices = [];
   final f = NumberFormat("\$###,###.00", "en_US");
+  bool isSearching = false;
 
   @override
   void initState() {
@@ -32,11 +34,13 @@ class _PrintPageState extends State<PrintPage> {
   }
 
   Future<void> getBluetooth() async {
+    isSearching = true;
     final List? bluetooths = await BluetoothThermalPrinter.getBluetooths;
     print("Print $bluetooths");
     setState(() {
       availableBluetoothDevices = bluetooths!;
     });
+    isSearching = false;
   }
 
   Future<void> setConnect(String mac) async {
@@ -47,6 +51,46 @@ class _PrintPageState extends State<PrintPage> {
         connected = true;
       });
     }
+  }
+
+  Future<void> printTicket() async {
+    String? isConnected = await BluetoothThermalPrinter.connectionStatus;
+    if (isConnected == "true") {
+      List<int> bytes = await getTicket();
+      final result = await BluetoothThermalPrinter.writeBytes(bytes);
+      print("Print $result");
+    } else {
+      //Hadnle Not Connected Senario
+    }
+  }
+
+  Future<List<int>> getTicket() async {
+    List<int> bytes = [];
+    CapabilityProfile profile = await CapabilityProfile.load();
+    final generator = Generator(PaperSize.mm80, profile);
+
+    bytes += generator.text("MMBC TOUR TRAVEL",
+        styles: PosStyles(
+          align: PosAlign.center,
+          height: PosTextSize.size2,
+          width: PosTextSize.size2,
+        ),
+        linesAfter: 1);
+
+    /**
+    bytes += generator.text(
+        "18th Main Road, 2nd Phase, J. P. Nagar, Bengaluru, Karnataka 560078",
+        styles: PosStyles(align: PosAlign.center));
+    bytes += generator.text('Tel: +919591708470',
+        styles: PosStyles(align: PosAlign.center));
+        **/
+
+    for( var i = 0 ; i<widget.data.length; i++ ) {
+      bytes += generator.text(widget.data[i],
+          styles: PosStyles(align: PosAlign.center), linesAfter: 1);
+    }
+    bytes += generator.cut();
+    return bytes;
   }
 
 
@@ -80,52 +124,48 @@ class _PrintPageState extends State<PrintPage> {
                 ),
               ),
             ),
-            body: RefreshIndicator(
-              onRefresh: () => printer.startScan(timeout: Duration(seconds: 4)),
-              child: SingleChildScrollView(
-                child: StreamBuilder<List<bluemodel.BluetoothDevice>>(
-                    stream: printer.scanResults,
-                    initialData: [],
-                    builder: (c, snapshot) {
-                      if(snapshot.data?.length == 0){
-                        return Column(
-                            children: [
-                              SizedBox(height: 50,),
-                              Center(child: Text("No devices found")),
-                            ]);
-                      }
-                      print(snapshot.data);
-                      return Column(
-                        children: snapshot.data!.map((d) => ListTile(
-                          leading: Icon(Icons.print),
-                          title: Text(d.name.toString()),
-                          subtitle: Text(d.address.toString()),
+            body: Container(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 200,
+                    child: isSearching?CircularProgressIndicator():ListView.builder(
+                      itemCount: availableBluetoothDevices.length > 0
+                          ? availableBluetoothDevices.length
+                          : 0,
+                      itemBuilder: (context, index) {
+                        return ListTile(
                           onTap: () {
-                            _startPrint(d);
+                            String select = availableBluetoothDevices[index];
+                            List list = select.split("#");
+                            // String name = list[0];
+                            String mac = list[1];
+                            this.setConnect(mac);
                           },
-                        )).toList(),
-                      );
-                    }
-                ),
+                          title: Text('${availableBluetoothDevices[index]}'),
+                          subtitle: Text("Click to connect"),
+                        );
+                      },
+                    )
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  TextButton(
+                    onPressed: connected ? this.printTicket : null,
+                    child: Text("Print Ticket"),
+                  ),
+                ],
               ),
             ),
-            floatingActionButton: StreamBuilder<bool>(
-              stream: printer.isScanning,
-              initialData: false,
-              builder: (c, snapshot) {
-                if (snapshot.data == true) {
-                  return FloatingActionButton(
-                    child: Icon(Icons.stop),
-                    onPressed: () => printer.stopScan(),
-                    backgroundColor: Colors.red,
-                  );
-                } else {
-                  return FloatingActionButton(
-                      child: Icon(Icons.search),
-                      onPressed: () => printer.startScan(timeout: Duration(seconds: 4)));
-                }
-              },
-            ),
+            floatingActionButton: FloatingActionButton(
+              child: Icon(Icons.search),
+              onPressed: () {
+                this.getBluetooth();
+              }
+              )
           );
         }else{
           return Center(
@@ -170,38 +210,7 @@ class _PrintPageState extends State<PrintPage> {
     );
   }
 
-  Future<void> _startPrint(bluemodel.BluetoothDevice device) async {
-    if (device != null && device.address != null) {
-      await printer.connect(device);
 
-      Map<String, dynamic> config = Map();
-      List<LineText> list = [];
-
-      list.add(
-        LineText(
-          type: LineText.TYPE_TEXT,
-          content: "MMBC TOUR TRAVEL",
-          weight: 2,
-          width: 2,
-          height: 2,
-          align: LineText.ALIGN_CENTER,
-          linefeed: 1,
-        ),
-      );
-
-      for (var i = 0; i < widget.data.length; i++) {
-        list.add(
-          LineText(
-            type: LineText.TYPE_TEXT,
-            content: widget.data[i],
-            weight: 0,
-            align: LineText.ALIGN_LEFT,
-            linefeed: 1,
-          ),
-        );
-      }
-    }
-  }
 }
 
 /**

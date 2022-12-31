@@ -20,26 +20,13 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:platform_device_id/platform_device_id.dart';
-
-import '../../routes/route_helper.dart';
 import '../../services/local_notification_service.dart';
-import '../../widgets/big_text.dart';
 import '../../widgets/home_app_bar.dart';
-import '../../widgets/product/bus_travel_icon.dart';
-import '../../widgets/product/flight_class_icon.dart';
-import '../../widgets/product/gopay_icon.dart';
-import '../../widgets/product/hotel_icon.dart';
-import '../../widgets/product/kai_icon.dart';
-import '../../widgets/product/lainnya_icon.dart';
-import '../../widgets/product/pelni_icon.dart';
-import '../../widgets/product/pln_icon.dart';
-import '../../widgets/small_text.dart';
 import '../navbar_screen/akun_screen.dart';
 import '../navbar_screen/bantuan_screen.dart';
 import '../navbar_screen/homepage_screen.dart';
 import '../navbar_screen/notifikasi_screen.dart';
 import '../navbar_screen/pesanan_screen.dart';
-import 'hotel_banner.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -51,6 +38,11 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   LocalNotificationService service = LocalNotificationService();
   String? mtoken = " ";
+
+  bool showBiometric = false;
+  bool isAuthenticated = false;
+
+
   @override
   void initState() {
     super.initState();

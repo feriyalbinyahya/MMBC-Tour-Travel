@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:mmbc_tour_and_travel/pages/account/take_picture.dart';
 import 'package:mmbc_tour_and_travel/pages/account/test_page.dart';
+import 'package:mmbc_tour_and_travel/pages/biometric_pin/passcod.dart';
+import 'package:mmbc_tour_and_travel/pages/biometric_pin/setup_pincode.dart';
 import 'package:mmbc_tour_and_travel/pages/flight/flight_form_page.dart';
 import 'package:mmbc_tour_and_travel/pages/home/main_home_page.dart';
 import 'package:mmbc_tour_and_travel/pages/login/login.dart';
@@ -19,6 +21,8 @@ class RouteHelper {
   static const String invoiceList = '/invoice-list';
   static const String printInvoice = '/print-invoice';
   static const String invoiceForm = '/invoice-form';
+  static const String passcode = '/passcode';
+  static const String setupPinCode = '/setup-pincode';
 
   static List<GetPage> routes = [
     GetPage(name: initial, page: ()=> MainPage()),
@@ -34,6 +38,8 @@ class RouteHelper {
       return PrintPage(_pickData);
     }),
     GetPage(name: invoiceForm, page: ()=> InvoiceFormPage()),
+    GetPage(name: setupPinCode, page: ()=> SetupPincode()),
+    GetPage(name: passcode, page: ()=> PasscodePage()),
     GetPage(name: invoiceList, page: () {
       InvoiceModel _pickData=Get.arguments;
       return InvoiceList(_pickData);

@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:mmbc_tour_and_travel/controllers/auth/auth_controller.dart';
 import 'package:mmbc_tour_and_travel/routes/route_helper.dart';
 import 'package:mmbc_tour_and_travel/widgets/big_text.dart';
@@ -8,6 +9,7 @@ import 'package:mmbc_tour_and_travel/widgets/product/top_menu_icon.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../base/show_custom_snackbar.dart';
+import '../../helper/biometric_helper.dart';
 import '../../utils/colors.dart';
 import '../../widgets/app_bar.dart';
 import '../../widgets/drawer.dart';
@@ -25,6 +27,14 @@ class _LoginPageState extends State<LoginPage> {
   bool isShowPassword = false;
   var usernameController = TextEditingController();
   var passwordController = TextEditingController();
+  bool isBioExist = false;
+
+  Future<bool> get hasBio async {
+    List<BiometricType> availableBiometrics =
+    await localAuth.getAvailableBiometrics();
+    return availableBiometrics.length > 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     final spinkit = SpinKitCircle(
@@ -206,4 +216,10 @@ class _LoginPageState extends State<LoginPage> {
       }),
     );
   }
+}
+
+class ScreenArgs {
+  final String email;
+
+  ScreenArgs({required this.email});
 }
