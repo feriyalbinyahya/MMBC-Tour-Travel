@@ -20,6 +20,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:platform_device_id/platform_device_id.dart';
+import '../../helper/biometric_helper.dart';
 import '../../services/local_notification_service.dart';
 import '../../widgets/home_app_bar.dart';
 import '../navbar_screen/akun_screen.dart';
@@ -51,6 +52,12 @@ class _MainPageState extends State<MainPage> {
 
     getToken();
     service.initialize();
+    isBiometricsAvailable();
+  }
+
+  isBiometricsAvailable() async {
+    showBiometric = await BiometricHelper().hasEnrolledBiometrics();
+    setState(() {});
   }
 
   void initialization() async {

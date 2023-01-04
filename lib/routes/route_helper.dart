@@ -39,7 +39,10 @@ class RouteHelper {
     }),
     GetPage(name: invoiceForm, page: ()=> InvoiceFormPage()),
     GetPage(name: setupPinCode, page: ()=> SetupPincode()),
-    GetPage(name: passcode, page: ()=> PasscodePage()),
+    GetPage(name: passcode, page: () {
+      bool _pickData=Get.arguments;
+      return PasscodePage(_pickData);
+    }),
     GetPage(name: invoiceList, page: () {
       InvoiceModel _pickData=Get.arguments;
       return InvoiceList(_pickData);

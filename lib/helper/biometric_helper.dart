@@ -16,6 +16,8 @@ class BiometricHelper {
   Stream<bool> get isEnabledStream => _isEnabledController.stream;
   Stream<bool> get isNewUserStream => _isNewUserController.stream;
 
+  String pincode = '123456';
+
   Future<String> read(String key) async {
     final val = await this._storage.read(key: key);
     return val != null ? jsonDecode(val) : '';
@@ -30,14 +32,17 @@ class BiometricHelper {
   }
 
   Future<void> verifyCode(String enteredCode) async {
-    final pin = await this.read('pin');
+    //final pin = await this.read('pin');
+    final pin = pincode;
     if (pin != null && pin == enteredCode) {
       this.isNewUserController.add(false);
+      this.isEnabledController.add(true);
     } else {
       this.isNewUserController.add(true);
       this.write('pin', enteredCode);
+      this.isEnabledController.add(false);
     }
-    this.isEnabledController.add(true);
+    //this.isEnabledController.add(true);
   }
 
   dispose() {

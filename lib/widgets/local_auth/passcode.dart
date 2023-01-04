@@ -29,7 +29,7 @@ class _PasscodeWidgetState extends State<PasscodeWidget> {
       title: Text('Enter your passcode'),
       passwordEnteredCallback: widget.onPassCallback,
       deleteButton: Text('Delete'),
-      cancelButton: Text('Cancel'),
+      cancelButton: Text('Fingerprint'),
       cancelCallback: widget.onCancelCallback,
       backgroundColor: Colors.indigo[200],
     );
